@@ -14,9 +14,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.bottom_navigation_view)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
-
-
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+        openFragment(TabScreen())
     }
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {

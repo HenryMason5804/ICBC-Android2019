@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 
 
-class RecyclerAdapter(val Request:RequestManager, val photos:ArrayList<String>, val names:ArrayList<String>, val sponsorLevel:ArrayList<String>, val sponsorDescr:ArrayList<String>) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(){
+class RecyclerAdapter(val request:RequestManager, val photos:ArrayList<String>, val names:ArrayList<String>, val sponsorLevel:ArrayList<String>, val sponsorDescr:ArrayList<String>) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(){
     class ViewHolder(view:View): RecyclerView.ViewHolder(view){
            val sponsorImageView: ImageView =itemView.findViewById(R.id.product_image)
             val sponsorLevelView:TextView =itemView.findViewById(R.id.product_title)
@@ -21,20 +21,25 @@ class RecyclerAdapter(val Request:RequestManager, val photos:ArrayList<String>, 
     }
 
     override fun getItemCount(): Int {
-            return 5
+            return photos.size
     }
 
-    override fun onBindViewHolder(holder: RecyclerAdapter.ViewHolder, position: Int) {
-        Log.d("bvhdebug", "onbindviewholder called")
-        Request.asBitmap().load(photos.get(position)).into(holder.sponsorImageView)
+    override fun onBindViewHolder(holder:ViewHolder, position: Int) {
+        Log.d("DebugNoAdapter", "onbindviewholder called")
+        request.asBitmap().load(photos.get(position)).into(holder.sponsorImageView)
+        Log.d("DebugNoAdapter", "imageloaded called")
         holder.sponsorLevelView.text = names.get(position)
+        Log.d("DebugNoAdapter", "sponsornameloaded called")
         holder.sponsorNameView.text = sponsorLevel.get(position)
+        Log.d("DebugNoAdapter", "sponsor level loaded called")
         holder.sponsorDescrView.text=sponsorDescr.get(position)
+        Log.d("DebugNoAdapter", "Descr loaded called")
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ViewHolder{
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.adapterviewlayou, parent, false))
-
+        val view=(LayoutInflater.from(parent.context).inflate(R.layout.adapterviewlayou, parent, false))
+        Log.d("DebugNoAdapter", "onCreateViewHolder called")
+        return ViewHolder(view)
 }
 }

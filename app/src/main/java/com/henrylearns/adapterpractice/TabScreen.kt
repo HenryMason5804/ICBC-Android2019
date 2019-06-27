@@ -31,4 +31,5 @@ class TabScreen : Fragment() {
         view.findViewById<TabLayout>(R.id.theTabLayout).setupWithViewPager(viewPager)
     }
 
+
 }

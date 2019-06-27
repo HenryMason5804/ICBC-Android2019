@@ -2,6 +2,7 @@ package com.henrylearns.adapterpractice
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,20 +20,30 @@ class SponsorFragment : Fragment() {
     lateinit var description: ArrayList<String>
     private lateinit var imgurl: ArrayList<String>
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
-        createArrays()
-        initRecyclerView()
-        return inflater.inflate(R.layout.activity_main, container, false)
+    companion object{
+        fun newInstance():SponsorFragment{
+            return SponsorFragment()
+        }
 
     }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+        Log.d("DebugNoAdapter", "onCreateView called")
+        val view:View =inflater.inflate(R.layout.activity_main,container,false)
+        createArrays()
+        initRecyclerView(view)
+        Log.d("DebugNoAdapter", "initRecyclerView() called")
+        return view
+    }
 
-    private fun initRecyclerView() {
-        val recyclerView = activity?.findViewById<RecyclerView>(R.id.recyclerview)
-        val manager:LinearLayoutManager= LinearLayoutManager(this.context)
-        recyclerView?.setHasFixedSize(true)
-        recyclerView?.layoutManager = LinearLayoutManager(context)
+    private fun initRecyclerView(view:View) {
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
+        val manager= LinearLayoutManager(this.context)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = manager
         val myAdapter = RecyclerAdapter(Glide.with(context!!), imgurl, sponsorNames, description,brief)
-        recyclerView?.adapter = myAdapter
+        Log.d("DebugNoAdapter", "instantiateadapter called")
+        recyclerView.adapter = myAdapter
+        Log.d("DebugNoAdapter", "Attached adapter called")
 
     }
 
@@ -65,7 +76,5 @@ class SponsorFragment : Fragment() {
         brief.add("this is where I would put my description but I am too lazy to change them for each")
         brief.add("this is where I would put my description but I am too lazy to change them for each")
         brief.add("this is where I would put my description but I am too lazy to change them for each")
-
-
     }
 }
