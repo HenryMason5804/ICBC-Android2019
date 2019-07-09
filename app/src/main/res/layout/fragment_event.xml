@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <com.google.android.material.card.MaterialCardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_weight="95"
+            android:layout_gravity="center"
+            android:layout_margin="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardElevation="2dp"
+            app:cardPreventCornerOverlap="true"
+            android:id="@+id/materialCard"
+            android:theme="@style/Theme.MaterialComponents"
+>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+        android:background="@android:color/transparent">
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:background="@android:color/transparent"
+            >
+
+                <TextView
+                        android:id="@+id/event_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="whut"
+                        android:textSize="11sp"
+                        android:textColor="@color/trademarkRed"
+                        android:textAppearance="?attr/textAppearanceHeadline6" />
+
+                <TextView
+                        android:text="nothing"
+                        android:id="@+id/event_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="22sp"
+                        android:textColor="@android:color/black"
+                        android:textAppearance="?attr/textAppearanceHeadline6" />
+
+                <TextView
+                        android:text="Brief"
+                        android:id="@+id/event_descr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxHeight="43sp"
+                        android:textSize="16sp"
+                        android:textColor="#66000000"
+                        android:textAppearance="?attr/textAppearanceBody1"
+                />
+
+            </LinearLayout>
+            <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:elevation="0dp"
+                    android:layout_margin="3.5dp">
+            <ImageView
+                    android:contentDescription="Image of Sponsor"
+                    tools:src="@tools:sample/backgrounds/scenic"
+                    android:id="@+id/event_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerCrop"
+                     />
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
