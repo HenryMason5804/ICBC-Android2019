@@ -12,10 +12,10 @@ class TabBarAdapter (fragmentManager: FragmentManager) : FragmentPagerAdapter(fr
         override fun getItem(position: Int): Fragment {
             return when (position) {
                 0 ->{ Log.d("getItemCheck","Went to 0")
-                    return EventFragment()}
+                    return SponsorFragment()}
                 else -> {
                     Log.d("getItemCheck","Went to 1")
-                    SponsorFragment()}
+                    EventFragment()}
 
                 }
 
@@ -27,8 +27,8 @@ class TabBarAdapter (fragmentManager: FragmentManager) : FragmentPagerAdapter(fr
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position){
-            1-> "Sponsors"
-            2->"Events"
+            0-> "Sponsors"
+            1->"Events"
             else->{return "Events"}
         }
     }

@@ -20,13 +20,13 @@ class MainActivity : AppCompatActivity() {
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                val myFragment=TabScreen()
+                val myFragment=rootFrameLayout()
                 openFragment(myFragment)
 
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                val myFragment=TabScreen()
+                val myFragment=rootFrameLayout()
                 openFragment(myFragment)
                 return@OnNavigationItemSelectedListener true
             }

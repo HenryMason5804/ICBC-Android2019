@@ -20,9 +20,7 @@ class TabScreen : Fragment() {
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
+
     fun setupViewPager(view:View) {
         val viewPager: ViewPager = view.findViewById(R.id.TabViewPager)
         val mymanager= this.childFragmentManager
