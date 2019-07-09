@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 
 
-class RecyclerAdapter(val request:RequestManager, val photos:ArrayList<String>, val names:ArrayList<String>, val sponsorLevel:ArrayList<String>, val sponsorDescr:ArrayList<String>) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(){
+class RecyclerAdapter(val request:RequestManager, val photos:ArrayList<String>, val names:ArrayList<String>, val sponsorLevel:ArrayList<String>, val sponsorDescr:ArrayList<String>, val listener: (eventName: String) -> Unit) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(){
     class ViewHolder(view:View): RecyclerView.ViewHolder(view){
            val sponsorImageView: ImageView =itemView.findViewById(R.id.product_image)
             val sponsorLevelView:TextView =itemView.findViewById(R.id.product_title)
@@ -34,6 +34,7 @@ class RecyclerAdapter(val request:RequestManager, val photos:ArrayList<String>, 
         Log.d("DebugNoAdapter", "sponsor level loaded called")
         holder.sponsorDescrView.text=sponsorDescr.get(position)
         Log.d("DebugNoAdapter", "Descr loaded called")
+        holder.itemView.setOnClickListener { listener(names[position]) }
     }
 
 

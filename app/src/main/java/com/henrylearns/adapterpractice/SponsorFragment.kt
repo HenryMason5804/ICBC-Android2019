@@ -9,10 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-
 
 class SponsorFragment : Fragment() {
     lateinit var sponsorNames: ArrayList<String>
@@ -20,12 +20,6 @@ class SponsorFragment : Fragment() {
     lateinit var description: ArrayList<String>
     private lateinit var imgurl: ArrayList<String>
 
-    companion object{
-        fun newInstance():SponsorFragment{
-            return SponsorFragment()
-        }
-
-    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         Log.d("DebugNoAdapter", "onCreateView called")
         val view:View =inflater.inflate(R.layout.activity_main,container,false)
@@ -36,15 +30,26 @@ class SponsorFragment : Fragment() {
     }
 
     private fun initRecyclerView(view:View) {
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
-        val manager= LinearLayoutManager(this.context)
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = manager
-        val myAdapter = RecyclerAdapter(Glide.with(context!!), imgurl, sponsorNames, description,brief)
-        Log.d("DebugNoAdapter", "instantiateadapter called")
-        recyclerView.adapter = myAdapter
-        Log.d("DebugNoAdapter", "Attached adapter called")
-
+        val parentFragment = parentFragment?.parentFragment
+        if(parentFragment is rootFrameLayout) {
+            val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
+            val manager = LinearLayoutManager(this.context)
+            recyclerView.setHasFixedSize(true)
+            recyclerView.layoutManager = manager
+            val myAdapter = RecyclerAdapter(
+                Glide.with(context!!),
+                imgurl,
+                sponsorNames,
+                description,
+                brief,
+                parentFragment.myClickListener
+            )
+            Log.d("DebugNoAdapter", "instantiateadapter called")
+            recyclerView.adapter = myAdapter
+            Log.d("DebugNoAdapter", "Attached adapter called")
+        } else {
+            throw Exception("Parent of parent fragment must be of type rootFrameLayout")
+        }
     }
 
     private fun createArrays() {
@@ -77,4 +82,5 @@ class SponsorFragment : Fragment() {
         brief.add("this is where I would put my description but I am too lazy to change them for each")
         brief.add("this is where I would put my description but I am too lazy to change them for each")
     }
+
 }
