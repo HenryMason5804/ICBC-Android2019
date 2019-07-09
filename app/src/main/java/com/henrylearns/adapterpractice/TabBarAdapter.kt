@@ -12,7 +12,7 @@ class TabBarAdapter (fragmentManager: FragmentManager) : FragmentPagerAdapter(fr
         override fun getItem(position: Int): Fragment {
             return when (position) {
                 0 ->{ Log.d("getItemCheck","Went to 0")
-                    return SponsorFragment()}
+                    SponsorFragment()}
                 else -> {
                     Log.d("getItemCheck","Went to 1")
                     EventFragment()}
@@ -29,7 +29,7 @@ class TabBarAdapter (fragmentManager: FragmentManager) : FragmentPagerAdapter(fr
         return when (position){
             0-> "Sponsors"
             1->"Events"
-            else->{return "Events"}
+            else->{"Events"}
         }
     }
     }
