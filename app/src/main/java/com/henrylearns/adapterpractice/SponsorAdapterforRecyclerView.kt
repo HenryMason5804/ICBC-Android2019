@@ -1,18 +1,16 @@
 package com.henrylearns.adapterpractice
-import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
-import com.bumptech.glide.Glide
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.RequestManager
 
 
-class RecyclerAdapter(val request:RequestManager, val photos:ArrayList<String>, val names:ArrayList<String>, val sponsorLevel:ArrayList<String>, val sponsorDescr:ArrayList<String>, val listener: (eventName: String) -> Unit) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(){
+class SponsorAdapterforRecyclerView(val request:RequestManager, val photos:ArrayList<String>, val names:ArrayList<String>, val sponsorLevel:ArrayList<String>, val sponsorDescr:ArrayList<String>, val listener: (eventName: String,myFrag:Fragment) -> Unit) : RecyclerView.Adapter<SponsorAdapterforRecyclerView.ViewHolder>(){
     class ViewHolder(view:View): RecyclerView.ViewHolder(view){
            val sponsorImageView: ImageView =itemView.findViewById(R.id.product_image)
             val sponsorLevelView:TextView =itemView.findViewById(R.id.product_title)
@@ -34,7 +32,7 @@ class RecyclerAdapter(val request:RequestManager, val photos:ArrayList<String>, 
         Log.d("DebugNoAdapter", "sponsor level loaded called")
         holder.sponsorDescrView.text=sponsorDescr.get(position)
         Log.d("DebugNoAdapter", "Descr loaded called")
-        holder.itemView.setOnClickListener { listener(names[position]) }
+        holder.itemView.setOnClickListener { listener(names[position],SponsorInfoFragment())}
     }
 
 

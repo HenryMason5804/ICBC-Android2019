@@ -7,9 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -20,29 +17,31 @@ class SponsorFragment : Fragment() {
     lateinit var description: ArrayList<String>
     private lateinit var imgurl: ArrayList<String>
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Log.d("Henry","enteredSponsorFragment")
         Log.d("DebugNoAdapter", "onCreateView called")
-        val view:View =inflater.inflate(R.layout.activity_main,container,false)
+        val view: View = inflater.inflate(R.layout.activity_main, container, false)
         createArrays()
         initRecyclerView(view)
         Log.d("DebugNoAdapter", "initRecyclerView() called")
         return view
     }
 
-    private fun initRecyclerView(view:View) {
+
+    private fun initRecyclerView(view: View) {
         val parentFragment = parentFragment?.parentFragment
-        if(parentFragment is rootFrameLayout) {
+        if (parentFragment is rootFrameLayout) {
             val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
             val manager = LinearLayoutManager(this.context)
             recyclerView.setHasFixedSize(true)
             recyclerView.layoutManager = manager
-            val myAdapter = RecyclerAdapter(
-                Glide.with(context!!),
-                imgurl,
-                sponsorNames,
-                description,
-                brief,
-                parentFragment.myClickListener
+            val myAdapter = SponsorAdapterforRecyclerView(
+                    Glide.with(context!!),
+                    imgurl,
+                    sponsorNames,
+                    description,
+                    brief,
+                    parentFragment.myClickListener
             )
             Log.d("DebugNoAdapter", "instantiateadapter called")
             recyclerView.adapter = myAdapter
@@ -53,7 +52,7 @@ class SponsorFragment : Fragment() {
     }
 
     private fun createArrays() {
-        brief=ArrayList<String>()
+        brief = ArrayList<String>()
         imgurl = ArrayList<String>()
         sponsorNames = ArrayList<String>()
         description = ArrayList<String>()
@@ -83,4 +82,15 @@ class SponsorFragment : Fragment() {
         brief.add("this is where I would put my description but I am too lazy to change them for each")
     }
 
+    class Sponsor(
+            var id: Float,
+            var name: String,
+            var sponsorLevel: String,
+            var description: String,
+            var imageName: String,
+            var about: String,
+            var linkedInURL: String,
+            var companyURL: String,
+            var assocEvents: Array<Float>
+            )
 }

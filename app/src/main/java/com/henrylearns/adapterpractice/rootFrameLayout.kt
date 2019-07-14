@@ -18,17 +18,22 @@ class rootFrameLayout : Fragment() {
         // Inflate the layout for this fragment
         val view:View=inflater.inflate(R.layout.fragment_root_frame_layout, container, false)
         childFragmentManager.beginTransaction().add(R.id.root_frame,TabScreen()).commit()
+        Log.d("Henry","enteredrootFrameLayout")
         return view
     }
-    val myClickListener: (eventName: String)-> Unit = {
+
+
+    val myClickListener: (eventName: String,Fragment)-> Unit = {eventName,myFrag->
+
         val trans = childFragmentManager
             .beginTransaction()
+
         /*
          * IMPORTANT: We use the "root frame" defined in
          * "root_fragment.xml" as the reference to replace fragment
          */
         Log.d("Henry","root frame is ${R.id.root_frame}")
-        trans.replace(R.id.root_frame, SponsorInfoFragment())
+        trans.replace(R.id.root_frame, myFrag)
         Log.d("Henry","made it past the replace")
 
         /*
@@ -37,6 +42,7 @@ class rootFrameLayout : Fragment() {
          */
         trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         Log.d("Henry","made it past the transition")
+
 
         trans.addToBackStack(null)
         Log.d("Henry","made it past the backstack")
@@ -47,3 +53,5 @@ class rootFrameLayout : Fragment() {
 
 
 }
+
+

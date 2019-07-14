@@ -2,6 +2,7 @@ package com.henrylearns.adapterpractice
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,9 +18,14 @@ class TabScreen : Fragment() {
         // Inflate the layout for this fragment
         val view:View = inflater.inflate(R.layout.fragment_tab_screen,container,false)
         setupViewPager(view)
+        Log.d("Henry","enteredTabScreen")
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+        setupViewPager(view!!)
+    }
 
     fun setupViewPager(view:View) {
         val viewPager: ViewPager = view.findViewById(R.id.TabViewPager)

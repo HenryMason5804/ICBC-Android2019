@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 
 class TabBarAdapter (fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
 
-
         override fun getItem(position: Int): Fragment {
             return when (position) {
                 0 ->{ Log.d("getItemCheck","Went to 0")

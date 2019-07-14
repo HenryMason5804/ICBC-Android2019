@@ -1,6 +1,7 @@
 package com.henrylearns.adapterpractice
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
@@ -11,6 +12,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var textMessage: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d("Henry","entered mainactivyt")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.bottom_navigation_view)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)

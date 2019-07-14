@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.fragment_sponsor_info.view.*
 
 
 class SponsorInfoFragment : Fragment() {
@@ -15,16 +17,21 @@ class SponsorInfoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val infoSnapshot=this.arguments
-        val companyID= savedInstanceState?.get("companyID")
-        Log.d("Henry","made it into SponsorInfoFragment")
 
         val view=inflater.inflate(R.layout.fragment_sponsor_info,container,false)
-    setupContent(view)
+        Glide.with(view).asBitmap().load("https://www.pixoto.com/images-photography/animals/other/butteflies-5742287486189568.jpg").into(view.imageView)
+        view.companyName.setText("Company Name")
+        view.introduction.setText("Company Introduction")
+        view.aboutParagraph.setText("This paragraph will describe the company")
+        view.linkedInButton.setText(" linkedIn")
+        view.companyButton.setText("company Website")
      return view }
-    private fun setupContent(view:View){
-       return
-    }
 
-
+//val infoSnapshot=this.arguments
+//        val companyID= savedInstanceState?.get("companyID")
+//        Log.d("Henry","made it into SponsorInfoFragment")
+    // setupContent(view)
+///private fun setupContent(view:View){
+//       return
+//    }
 }

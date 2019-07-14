@@ -10,8 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_main.view.*
+import java.sql.Time
 
 
 class EventFragment : Fragment() {
@@ -26,13 +25,16 @@ class EventFragment : Fragment() {
         initiateRecyclerViewAdapter(view)
         return view
     }
-    fun initiateRecyclerViewAdapter(view:View){
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
-        val manager= LinearLayoutManager(this.context)
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = manager
-        val myAdapter = RecyclerAdapterForEvent(view.context, eventImage, eventTitle, eventCode,eventDescrip,myClickListener)
-        recyclerView.adapter = myAdapter
+    fun initiateRecyclerViewAdapter(view:View) {
+        val parentFrag = parentFragment?.parentFragment
+        if (parentFrag is rootFrameLayout) {
+            val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
+            val manager = LinearLayoutManager(this.context)
+            recyclerView.setHasFixedSize(true)
+            recyclerView.layoutManager = manager
+            val myAdapter = EventAdapterforRecylerView(view.context, eventImage, eventTitle, eventCode, eventDescrip, parentFrag.myClickListener)
+            recyclerView.adapter = myAdapter
+        }
     }
 
     fun createArray(){
@@ -85,4 +87,18 @@ class EventFragment : Fragment() {
         trans.commit();
         Log.d("Henry","made it past the commit")
     }
+    /*
+    data class Event(
+        var ID:Float,
+        var eventCode:String,
+        var name:String,
+        var description:String,
+        var about:String,
+        var imageURL:String,
+        var location:String,
+        var time:Time,
+        var mapbuttoninfo: String,
+        var assocSponsors:Array<Float>
+    )*/
+
 }
