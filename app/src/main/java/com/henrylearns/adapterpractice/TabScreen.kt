@@ -22,10 +22,6 @@ class TabScreen : Fragment() {
         return view
     }
 
-    override fun onResume() {
-        super.onResume()
-        setupViewPager(view!!)
-    }
 
     fun setupViewPager(view:View) {
         val viewPager: ViewPager = view.findViewById(R.id.TabViewPager)

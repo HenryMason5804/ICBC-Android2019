@@ -22,8 +22,16 @@ class rootFrameLayout : Fragment() {
         return view
     }
 
+ fun doOnBackPressed():Boolean{
+     if (childFragmentManager.backStackEntryCount<1) {
+         return false
+     }
+     else
+     childFragmentManager.popBackStackImmediate()
+     return true
+ }
 
-    val myClickListener: (eventName: String,Fragment)-> Unit = {eventName,myFrag->
+    val myClickListener: (eventName: String,myFrag:Fragment)-> Unit = {eventName,myFrag->
 
         val trans = childFragmentManager
             .beginTransaction()
@@ -44,7 +52,7 @@ class rootFrameLayout : Fragment() {
         Log.d("Henry","made it past the transition")
 
 
-        trans.addToBackStack(null)
+        trans.addToBackStack("${myFrag.javaClass.toString()}")
         Log.d("Henry","made it past the backstack")
 
         trans.commit();
