@@ -66,9 +66,9 @@ fun updateIcon(){
         0->
         {findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.nav_view).selectedItemId=R.id.navigation_home}
         1->{
-            findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.nav_view).selectedItemId=R.id.navigation_dashboard}
+            findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.nav_view).selectedItemId=R.id.navigation_favourites}
         2 ->
-        {findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.nav_view).selectedItemId=R.id.navigation_notifications}
+        {findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.nav_view).selectedItemId=R.id.navigation_map}
     }
 }
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -85,13 +85,13 @@ fun updateIcon(){
                 selectedItemStack.push(0)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_dashboard -> {
+            R.id.navigation_favourites -> {
                 openFragment(secondFragment)
                 current=secondFragment
                 selectedItemStack.push(1)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_notifications -> {
+            R.id.navigation_map -> {
                 openFragment(thirdFragment)
                 selectedItemStack.push(2)
                 return@OnNavigationItemSelectedListener true
