@@ -1,0 +1,41 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@android:color/white">
+    <TextView android:id="@+id/greeting_text_schedule"
+            android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Hey Nakul, here's your day"
+              android:textColor="@android:color/black"
+              android:textAppearance="?attr/textAppearanceListItem"
+              android:textStyle="bold"
+              android:textSize="17sp"
+              android:layout_margin="16dp"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+    />
+    <com.henrylearns.adapterpractice.NoSwipePager
+            app:layout_constraintTop_toBottomOf="@id/greeting_text_schedule"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/nestedViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+        <com.google.android.material.tabs.TabLayout
+                android:id="@+id/pager_title_strip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                app:tabTextColor="@color/trademarkRed"
+                android:background="@drawable/underline_drawable"
+                android:textColor="@android:color/black"
+                app:tabIndicatorColor="@color/trademarkRed"
+                android:backgroundTint="@android:color/white"
+                android:paddingBottom="0dp"/>
+
+    </com.henrylearns.adapterpractice.NoSwipePager>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
