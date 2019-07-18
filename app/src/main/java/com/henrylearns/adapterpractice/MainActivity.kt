@@ -12,8 +12,12 @@ import com.henrylearns.adapterpractice.SponsorFragment
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
 
-class MainActivity : AppCompatActivity() {
-    val firstFragment=rootFrameLayout()
+class MainActivity : AppCompatActivity(), ScheduleFragment.OnListFragmentInteractionListener {
+    override fun onListFragmentInteraction(item: DayModel.DayItem) {
+        //This may or may not need to be populated
+    }
+
+    val firstFragment=ScheduleTabFragment()
     val secondFragment=MapFragment()
     val thirdFragment=SponsorInfoFragment()
     var current:Fragment=SponsorInfoFragment()
@@ -27,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.bottom_navigation_view)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-        openFragment(rootFrameLayout())
+        openFragment(firstFragment)
         selectedItemStack=Stack()
         selectedItemStack.push(0)
     }
