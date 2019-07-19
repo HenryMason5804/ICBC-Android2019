@@ -1,4 +1,4 @@
-package com.henrylearns.adapterpractice
+package com.henrylearns.adapterpractice.favourites
 
 
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
+import com.henrylearns.adapterpractice.R
 
 
 class TabScreen : Fragment() {

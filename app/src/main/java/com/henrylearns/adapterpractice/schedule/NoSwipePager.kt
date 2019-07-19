@@ -1,4 +1,4 @@
-package com.henrylearns.adapterpractice
+package com.henrylearns.adapterpractice.schedule
 
 import android.content.Context
 import android.util.AttributeSet

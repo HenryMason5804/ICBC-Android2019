@@ -1,15 +1,17 @@
-package com.henrylearns.adapterpractice
+package com.henrylearns.adapterpractice.schedule
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.henrylearns.adapterpractice.DayModel
+import com.henrylearns.adapterpractice.R
 import kotlinx.android.synthetic.main.item_schedule.view.*
 
 class MyDayRecyclerViewAdapter(
-    private val mValues: List<DayModel.DayItem>,
-    private val mListener: ScheduleFragment.OnListFragmentInteractionListener?
+        private val mValues: List<DayModel.DayItem>,
+        private val mListener: ScheduleFragment.OnListFragmentInteractionListener?
 ) : RecyclerView.Adapter<MyDayRecyclerViewAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener

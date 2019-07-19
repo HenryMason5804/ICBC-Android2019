@@ -1,16 +1,15 @@
-package com.henrylearns.adapterpractice
+package com.henrylearns.adapterpractice.favourites
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
 import com.bumptech.glide.Glide
+import com.henrylearns.adapterpractice.R
 import kotlinx.android.synthetic.main.fragment_event_info.view.*
 
-import kotlinx.android.synthetic.main.fragment_sponsor_info.view.*
 import kotlinx.android.synthetic.main.fragment_sponsor_info.view.aboutParagraph
 import kotlinx.android.synthetic.main.fragment_sponsor_info.view.companyName
 import kotlinx.android.synthetic.main.fragment_sponsor_info.view.imageView

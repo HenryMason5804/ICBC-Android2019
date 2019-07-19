@@ -1,4 +1,4 @@
-package com.henrylearns.adapterpractice
+package com.henrylearns.adapterpractice.schedule
 
 import android.content.Context
 import android.os.Bundle
@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.henrylearns.adapterpractice.DayModel
+import com.henrylearns.adapterpractice.R
 
 class ScheduleFragment : Fragment() {
 
@@ -39,8 +41,8 @@ class ScheduleFragment : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
                 adapter = MyDayRecyclerViewAdapter(
-                    DayModel.ITEMS,
-                    listener
+                        DayModel.ITEMS,
+                        listener
                 )
             }
         }

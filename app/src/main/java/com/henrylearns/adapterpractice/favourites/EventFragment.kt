@@ -1,4 +1,4 @@
-package com.henrylearns.adapterpractice
+package com.henrylearns.adapterpractice.favourites
 
 
 import android.os.Bundle
@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import java.sql.Time
+import com.henrylearns.adapterpractice.R
 
 
 class EventFragment : Fragment() {

@@ -1,4 +1,4 @@
-package com.henrylearns.adapterpractice
+package com.henrylearns.adapterpractice.favourites
 
 
 import android.os.Bundle
@@ -7,8 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.henrylearns.adapterpractice.R
 
 
 class rootFrameLayout : Fragment() {
@@ -17,7 +17,7 @@ class rootFrameLayout : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view:View=inflater.inflate(R.layout.fragment_root_frame_layout, container, false)
-        childFragmentManager.beginTransaction().add(R.id.root_frame,TabScreen()).commit()
+        childFragmentManager.beginTransaction().add(R.id.root_frame, TabScreen()).commit()
         Log.d("Henry","enteredrootFrameLayout")
         return view
     }

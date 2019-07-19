@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SponsorInfoFragment">
+    tools:context=".favourites.SponsorInfoFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView

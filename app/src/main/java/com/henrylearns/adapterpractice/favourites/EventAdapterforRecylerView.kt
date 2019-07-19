@@ -1,4 +1,4 @@
-package com.henrylearns.adapterpractice
+package com.henrylearns.adapterpractice.favourites
 
 import android.content.Context
 import android.util.Log
@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.henrylearns.adapterpractice.R
 
 
 class EventAdapterforRecylerView(val context:Context, val imageURLs:ArrayList<String>, val eventTitle:ArrayList<String>, val eventCode:ArrayList<String>, val eventDescrip:ArrayList<String>, val clickListenerFunction:(eventName: String,myFrag:Fragment) -> Unit): RecyclerView.Adapter<EventAdapterforRecylerView.ViewHolder>() {
@@ -25,16 +26,16 @@ class EventAdapterforRecylerView(val context:Context, val imageURLs:ArrayList<St
         return imageURLs.size
     }
 
-    override fun onBindViewHolder(holder: EventAdapterforRecylerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(context).asBitmap().load(imageURLs.get(position)).into(holder.eventImageView)
         holder.eventDescripView.text = eventDescrip.get(position)
         holder.eventTitleView.text = eventTitle.get(position)
         holder.eventcodeView.text = eventCode.get(position)
-        holder.itemView.setOnClickListener{clickListenerFunction(eventTitle[position],EventInfoFragment())
+        holder.itemView.setOnClickListener{clickListenerFunction(eventTitle[position], EventInfoFragment())
             Log.d("Henry","made it past the setOnClickListener")}
 
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventAdapterforRecylerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val tempView=(LayoutInflater.from(parent.context).inflate(R.layout.fragment_event,parent,false))
         return ViewHolder(tempView)
     }

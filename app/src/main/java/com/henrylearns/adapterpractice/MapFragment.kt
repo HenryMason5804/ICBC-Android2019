@@ -2,10 +2,19 @@ package com.henrylearns.adapterpractice
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.henrylearns.adapterpractice.favourites.SponsorInfoFragment
+import com.henrylearns.adapterpractice.favourites.rootFrameLayout
+import java.util.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -27,3 +36,4 @@ class MapFragment : Fragment() {
 
 
 }
+

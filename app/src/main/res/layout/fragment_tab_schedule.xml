@@ -16,7 +16,7 @@
               app:layout_constraintTop_toTopOf="parent"
               app:layout_constraintStart_toStartOf="parent"
     />
-    <com.henrylearns.adapterpractice.NoSwipePager
+    <com.henrylearns.adapterpractice.schedule.NoSwipePager
             app:layout_constraintTop_toBottomOf="@id/greeting_text_schedule"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,6 +36,6 @@
                 android:backgroundTint="@android:color/white"
                 android:paddingBottom="0dp"/>
 
-    </com.henrylearns.adapterpractice.NoSwipePager>
+    </com.henrylearns.adapterpractice.schedule.NoSwipePager>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-              android:orientation="vertical"
-             tools:context=".SponsorInfoFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".favourites.SponsorInfoFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
@@ -23,9 +24,14 @@
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
     android:orientation="horizontal" android:gravity="center">
         <Button android:layout_width="158dp" android:layout_height="48dp"
-        android:layout_margin="16dp" android:id="@+id/linkedInButton"/>
+        android:layout_margin="16dp" android:id="@+id/linkedInButton"
+            android:drawableLeft="@drawable/linked_in_button_left_blue"
+            android:textColor="@color/trademarkRed"/>
         <Button android:layout_width="158dp" android:layout_height="48dp"
-                android:layout_margin="16dp" android:id="@+id/companyButton"/>
+                android:layout_margin="16dp" android:id="@+id/companyButton"
+            android:drawableLeft="@drawable/ic_icon_add_filled"
+            android:textColor="@color/trademarkRed"
+            app:autoSizeTextType="uniform" />
            </LinearLayout>
     <TextView android:layout_width="match_parent" android:layout_height="24dp"
     android:text="About"/>

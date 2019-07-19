@@ -1,9 +1,10 @@
-package com.henrylearns.adapterpractice
+package com.henrylearns.adapterpractice.schedule
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.henrylearns.adapterpractice.R
 import kotlinx.android.synthetic.main.fragment_tab_schedule.*
 
 class ScheduleTabFragment : Fragment() {
