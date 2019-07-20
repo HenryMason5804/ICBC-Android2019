@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
         >
@@ -42,13 +42,14 @@
         android:text="Inter-Collegiate Business Competition"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
 <TextView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="35dp"
     android:textSize="28dp"
-    android:layout_margin="10dp"
+    android:layout_marginStart="10dp"
     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
     android:textColor="@color/trademarkRed"
     android:text="About ICBC"
@@ -56,7 +57,8 @@
 <TextView
     android:layout_width="match_parent"
     android:layout_height="66dp"
-    android:layout_margin="10dp"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginTop="10dp"
     android:text="Canada's largest, oldest, and most prestigious
 undergraduate case competition.  Student Run, we proudly bring  the world to Canada"
     android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
@@ -65,9 +67,32 @@ undergraduate case competition.  Student Run, we proudly bring  the world to Can
         android:layout_width="match_parent"
         android:textSize="28dp"
         android:layout_gravity="bottom"
-        android:layout_height="56dp"
-        android:layout_margin="10dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:textColor="@color/trademarkRed"
         android:text="Executive Team" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginHorizontal="10dp"
+        android:id="@+id/execTeamRecycler">
+    </androidx.recyclerview.widget.RecyclerView>
+    <TextView
+        android:text="History"
+        android:layout_width="match_parent"
+        android:textSize="28dp"
+        android:gravity="bottom"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@color/trademarkRed"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="184dp"
+        android:layout_marginHorizontal="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:text="Since 1978, we have been challenging the best and brightest business students from across Canada and around the world. With eight competition streams – Accounting, Business Policy, Debate, Ethics, Finance, Human Resources, Marketing, and Management Information Systems – and two competitive rounds of competition, we are proud to bring the world to Canada.  "/>
 </LinearLayout>
