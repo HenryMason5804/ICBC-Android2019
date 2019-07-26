@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "407694977555",
+    "firebase_url": "https://icbc-4527a.firebaseio.com",
+    "project_id": "icbc-4527a",
+    "storage_bucket": "icbc-4527a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:407694977555:android:4b980bf3ab5b5d59",
+        "android_client_info": {
+          "package_name": "com.henrylearns.adapterpractice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "407694977555-ubj3ko4ob5dr7g1umve3tut9j7dmri7b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.henrylearns.adapterpractice",
+            "certificate_hash": "04cc59dca70a19e450dd4dc5a595556b8e44d1b8"
+          }
+        },
+        {
+          "client_id": "407694977555-nd5om70n9iqj3jlo1j74sb2hvrh7tpot.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiMzAgnAlP6Uh5k6dhcO_RCUkaUIauvnI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "407694977555-nd5om70n9iqj3jlo1j74sb2hvrh7tpot.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

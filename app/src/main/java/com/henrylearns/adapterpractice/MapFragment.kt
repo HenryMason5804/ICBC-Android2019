@@ -33,7 +33,6 @@ class MapFragment : Fragment(),OnMapReadyCallback {
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY)
         }
-        val test=myView.findViewById<TextView>(R.id.jjj)
         val myMap:MapView=myView.findViewById<MapView>(R.id.mapview)
         mMapView = myMap
         mMapView.onCreate(mapViewBundle)
