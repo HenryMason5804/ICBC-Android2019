@@ -5,6 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name ="trademarkRed" >#6E1E1f</color>
     <color name = "trademarkRedFaded">#996E1E1F </color>
+    <color name = "trademarkRedFaded2">#256E1E1F </color>
     <color name = "trademarkGold">#CEA446</color>
 
 
