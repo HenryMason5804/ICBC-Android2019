@@ -2,38 +2,75 @@ package com.henrylearns.adapterpractice
 
 
 import android.os.Bundle
-import android.util.Log
+
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.henrylearns.adapterpractice.favourites.SponsorInfoFragment
-import com.henrylearns.adapterpractice.favourites.rootFrameLayout
-import java.util.*
+
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- *
- */
-class MapFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_map, container, false)
+
+class MapFragment : Fragment(),OnMapReadyCallback {
+    override fun onMapReady(map: GoogleMap?) {
+        map?.addMarker(MarkerOptions().position(LatLng(0.0, 0.0)).title("Stauffer"))
+    }
+
+    private val MAPVIEW_BUNDLE_KEY = "MapViewBundleKey"
+    lateinit var mMapView: MapView
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val myView = inflater.inflate(R.layout.fragment_map, container, false)
+        var mapViewBundle: Bundle? = null
+        if (savedInstanceState != null) {
+            mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY)
+        }
+        val test=myView.findViewById<TextView>(R.id.jjj)
+        val myMap:MapView=myView.findViewById<MapView>(R.id.mapview)
+        mMapView = myMap
+        mMapView.onCreate(mapViewBundle)
+
+        mMapView.getMapAsync(this)
+    return myView
     }
 
 
-}
+    override fun onResume() {
+        super.onResume()
+        mMapView.onResume()
+    }
 
+    override fun onStart() {
+        super.onStart()
+        mMapView.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mMapView.onStop()
+    }
+
+
+    override fun onPause() {
+        mMapView.onPause()
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        mMapView.onDestroy()
+        super.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mMapView.onLowMemory()
+    }
+}

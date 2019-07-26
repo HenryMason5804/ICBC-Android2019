@@ -1,7 +1,9 @@
 package com.henrylearns.adapterpractice
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -24,34 +26,42 @@ class SignIn : AppCompatActivity() {
         val nameText: TextView = findViewById(R.id.nameText)
         val nameText2: TextView = findViewById(R.id.nameText2)
 
-        idEdit.setOnFocusChangeListener {_, b ->
-                if (b){
-                    idText.visibility = View.VISIBLE
-                    idText2.visibility = View.VISIBLE
-                } else{
-                    idText.visibility = View.INVISIBLE
-                    idText2.visibility = View.INVISIBLE
-                }
+        idEdit.setOnFocusChangeListener { _, b ->
+            if (b) {
+                idText.visibility = View.VISIBLE
+                idText2.visibility = View.VISIBLE
+            } else {
+                idText.visibility = View.INVISIBLE
+                idText2.visibility = View.INVISIBLE
+            }
         }
 
-        emailEdit.setOnFocusChangeListener {_, b ->
-            if (b){
+        emailEdit.setOnFocusChangeListener { _, b ->
+            if (b) {
                 emailText.visibility = View.VISIBLE
                 emailText2.visibility = View.VISIBLE
-            } else{
+            } else {
                 emailText.visibility = View.INVISIBLE
                 emailText2.visibility = View.INVISIBLE
             }
         }
 
-        nameEdit.setOnFocusChangeListener {_, b ->
-            if (b){
+        nameEdit.setOnFocusChangeListener { _, b ->
+            if (b) {
                 nameText.visibility = View.VISIBLE
                 nameText2.visibility = View.VISIBLE
-            } else{
+            } else {
                 nameText.visibility = View.INVISIBLE
                 nameText2.visibility = View.INVISIBLE
             }
+        }
+
+        val nextButton=findViewById<Button>(R.id.submitID)
+        nextButton.setOnClickListener{
+            var intent= Intent(this,MainActivity::class.java)
+            intent.putExtra("userID",idEdit.text)
+            startActivity(intent)
+
         }
     }
 

@@ -1,14 +1,13 @@
-package com.henrylearns.adapterpractice
+package com.henrylearns.adapterpractice.profile
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.henrylearns.adapterpractice.R
 import de.hdodenhof.circleimageview.CircleImageView
 
 class profileAdapter(val context: Context): RecyclerView.Adapter<profileAdapter.ViewHolder>() {
@@ -19,15 +18,16 @@ class profileAdapter(val context: Context): RecyclerView.Adapter<profileAdapter.
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): profileAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val tempView=(LayoutInflater.from(parent.context).inflate(R.layout.profile_view_holder,parent,false))
-        return ViewHolder(tempView) }
+        return ViewHolder(tempView)
+    }
 
     override fun getItemCount(): Int {
         return 10
     }
 
-    override fun onBindViewHolder(holder: profileAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(context).asBitmap().load(imageURLs).into(holder.image)
         holder.text.text="${position}"}
 

@@ -12,6 +12,8 @@ import com.henrylearns.adapterpractice.schedule.ScheduleFragment
 import com.henrylearns.adapterpractice.schedule.ScheduleTabFragment
 import com.henrylearns.adapterpractice.favourites.SponsorInfoFragment
 import com.henrylearns.adapterpractice.favourites.rootFrameLayout
+import com.henrylearns.adapterpractice.map.googleMapFragment
+import com.henrylearns.adapterpractice.profile.ProfileFragment
 import java.util.*
 
 
@@ -22,7 +24,7 @@ class MainActivity : AppCompatActivity(), ScheduleFragment.OnListFragmentInterac
 
     val firstFragment = ScheduleTabFragment()
     val secondFragment = rootFrameLayout()
-    val thirdFragment = SponsorInfoFragment()
+    val thirdFragment =MapFragment()
     val fourthFragment = ProfileFragment()
     var current: Fragment = SponsorInfoFragment()
     lateinit var selectedItemStack: Stack<Int>

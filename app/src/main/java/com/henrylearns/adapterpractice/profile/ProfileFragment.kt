@@ -1,4 +1,4 @@
-package com.henrylearns.adapterpractice
+package com.henrylearns.adapterpractice.profile
 
 
 import android.os.Bundle
@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_profile.*
+import com.henrylearns.adapterpractice.R
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -26,7 +26,7 @@ fun initRecyclerAdapter(view:View){
     val manager = LinearLayoutManager(view.context)
     recyclerView.setHasFixedSize(true)
     recyclerView.layoutManager = manager
-    val myAdapter=profileAdapter(view.context)
+    val myAdapter= profileAdapter(view.context)
     recyclerView.adapter=myAdapter
 }
 }

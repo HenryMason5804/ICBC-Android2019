@@ -28,14 +28,22 @@
             android:drawableLeft="@drawable/common_google_signin_btn_icon_dark_normal"/>
     </LinearLayout>
     <TextView android:layout_width="match_parent" android:layout_height="24dp"
-        android:text="About"/>
+        android:text="About"
+        android:textSize="18sp"/>
     <TextView android:layout_width="match_parent" android:layout_height="101dp"
-        android:id="@+id/aboutParagraph"/>
+        android:id="@+id/aboutParagraph"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"
+        android:text="Pulvinar iaculis venenatis nec senectus auctor pretium eget phasellus ullamcorper suscipit, ligula sed turpis quis curae mollis dolor commodo turpis dui, fusce consectetur vitae venenatis volutpat porta semper posuere bibendum."/>
     <TextView android:layout_width="match_parent" android:layout_height="24dp"
         android:text="Events"
+        android:textSize="16dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"
+
         />
     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent">
-        <androidx.viewpager.widget.ViewPager android:layout_width="match_parent"
-            android:layout_height="match_parent"></androidx.viewpager.widget.ViewPager>
-    </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/eventInfoRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+</LinearLayout>
 </LinearLayout>
