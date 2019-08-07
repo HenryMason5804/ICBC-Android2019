@@ -17,8 +17,30 @@ class rootFrameLayout : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view:View=inflater.inflate(R.layout.fragment_root_frame_layout, container, false)
-        childFragmentManager.beginTransaction().add(R.id.root_frame, TabScreen()).commit()
-        Log.d("Henry","enteredrootFrameLayout")
+        val bund=arguments
+        if (bund == null){
+            childFragmentManager.beginTransaction().add(R.id.root_frame, TabScreen()).commit()
+            Log.d("Henry","enteredrootFrameLayout")
+
+        }
+        else if (bund["fragType"]==1){
+            childFragmentManager.beginTransaction().add(R.id.root_frame, TabScreen()).commit()
+            Log.d("Henry","enteredrootFrameLayout")
+        }
+        else if(bund["fragType"]==2){
+            val myBund=Bundle()
+            myBund.putLong("ID",bund["ID"]as Long)
+            val myFrag=SponsorInfoFragment()
+            myFrag.arguments=myBund
+            childFragmentManager.beginTransaction().add(R.id.root_frame,myFrag).commit()
+        }
+        else if (bund["fragType"]==3) {
+            val myBund = Bundle()
+            myBund.putLong("ID", bund["ID"] as Long)
+            val myFrag = EventInfoFragment()
+            myFrag.arguments = myBund
+            childFragmentManager.beginTransaction().add(R.id.root_frame, myFrag).commit()
+        }
         return view
     }
 
@@ -31,7 +53,7 @@ class rootFrameLayout : Fragment() {
      return true
  }
 
-    val myClickListener: (eventName: String,myFrag:Fragment)-> Unit = {eventName,myFrag->
+    val myClickListener: (eventName: Long,fragType:Int)-> Unit = {eventID,fragType->
 
         val trans = childFragmentManager
             .beginTransaction()
@@ -41,6 +63,11 @@ class rootFrameLayout : Fragment() {
          * "root_fragment.xml" as the reference to replace fragment
          */
         Log.d("Henry","root frame is ${R.id.root_frame}")
+        var mybundle=Bundle()
+        mybundle.putLong("ID",eventID)
+        mybundle.putInt("fragType",fragType)
+       val myFrag=rootFrameLayout()
+        myFrag.arguments=mybundle
         trans.replace(R.id.root_frame, myFrag)
         Log.d("Henry","made it past the replace")
 

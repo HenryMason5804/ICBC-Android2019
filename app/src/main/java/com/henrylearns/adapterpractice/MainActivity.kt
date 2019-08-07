@@ -1,5 +1,6 @@
 package com.henrylearns.adapterpractice
 
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
@@ -7,24 +8,38 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.henrylearns.adapterpractice.dataobjects.FullEventObject
 import com.henrylearns.adapterpractice.schedule.ScheduleFragment
 import com.henrylearns.adapterpractice.schedule.ScheduleTabFragment
 import com.henrylearns.adapterpractice.favourites.SponsorInfoFragment
 import com.henrylearns.adapterpractice.favourites.rootFrameLayout
-import com.henrylearns.adapterpractice.map.googleMapFragment
+import com.henrylearns.adapterpractice.map.MapFragment
 import com.henrylearns.adapterpractice.profile.ProfileFragment
 import java.util.*
 
 
 class MainActivity : AppCompatActivity(), ScheduleFragment.OnListFragmentInteractionListener {
-    override fun onListFragmentInteraction(item: DayModel.DayItem) {
-        //This may or may not need to be populated
+    public override fun onListFragmentInteraction(item: FullEventObject) {
+        Toast.makeText(this,"what",Toast.LENGTH_LONG).show()
+        val bundle=Bundle()
+        bundle.putLong("ID",item.id)
+        bundle.putInt("fragType",3)
+        var myFrag=rootFrameLayout()
+        myFrag.arguments=bundle
+        selectedItemStack.push(1)
+        openFragment(myFrag)
+    }
+    public fun whocares(){
+
     }
 
     val firstFragment = ScheduleTabFragment()
     val secondFragment = rootFrameLayout()
-    val thirdFragment =MapFragment()
+    val thirdFragment = MapFragment()
     val fourthFragment = ProfileFragment()
     var current: Fragment = SponsorInfoFragment()
     lateinit var selectedItemStack: Stack<Int>
@@ -40,6 +55,7 @@ class MainActivity : AppCompatActivity(), ScheduleFragment.OnListFragmentInterac
         openFragment(firstFragment)
         selectedItemStack = Stack()
         selectedItemStack.push(0)
+        findViewById<BottomNavigationView>(R.id.nav_view).selectedItemId=R.id.navigation_favourites
     }
 
     override fun onBackPressed() {
@@ -124,7 +140,7 @@ class MainActivity : AppCompatActivity(), ScheduleFragment.OnListFragmentInterac
         false
     }
 
-    private fun openFragment(fragment: Fragment) {
+    public fun openFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container, fragment)
         transaction.addToBackStack(null)

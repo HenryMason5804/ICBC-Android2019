@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.bumptech.glide.Glide
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FirebaseFirestore
 import com.henrylearns.adapterpractice.R
+import com.henrylearns.adapterpractice.dataobjects.FullEventObject
 import kotlinx.android.synthetic.main.fragment_event_info.*
 import kotlinx.android.synthetic.main.fragment_event_info.view.*
 import kotlinx.android.synthetic.main.fragment_event_info.view.eventInfoRecyclerView
@@ -22,33 +25,54 @@ import kotlinx.android.synthetic.main.fragment_sponsor_info.view.introduction
 
 class EventInfoFragment : Fragment() {
 
-    lateinit var eventCode:ArrayList<String>
-    lateinit var eventTitle:ArrayList<String>
-    lateinit var eventDescrip:ArrayList<String>
-    lateinit var eventImage:ArrayList<String>
 
+    lateinit var adapter:EventInfoAdapter
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_event_info, container, false)
-        Glide.with(view).asBitmap().load("https://46yuuj40q81w3ijifr45fvbe165m-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/horseshoe-bend-600x370.jpg").into(view.imageView)
-        view.companyName.setText("Company Name")
-        view.introduction.setText("Company Introduction")
-        view.aboutParagraph.setText("This paragraph will describe the company")
-        view.notifyButton.setText(" linkedIn")
-        view.mapButton.setText("company Website")
-        createArray()
-        initiateAdapter(view)
+        val mybundle=arguments
+        var myList: ArrayList<Long>
+        lateinit var clickListener:(Long,Int)->Unit
+        val ppFrag=parentFragment?.parentFragment
+        val pFrag=parentFragment
+        if (ppFrag is rootFrameLayout){
+            clickListener = ppFrag.myClickListener}
+        else if(pFrag is rootFrameLayout){
+            clickListener=pFrag.myClickListener
+        }
+        var eventColRef: CollectionReference = FirebaseFirestore.getInstance().collection("Events")
+        val thisEvent=eventColRef.whereEqualTo("id",mybundle!!.getLong("ID")).get()
+        thisEvent.addOnSuccessListener { documents ->
+            for (document in documents) {
+                val thisEventObject = document.toObject(FullEventObject::class.java)
+                Glide.with(view).asBitmap().load(thisEventObject.image).into(view.imageView)
+                view.eventName.setText(thisEventObject.name)
+                view.introduction.setText(thisEventObject.description)
+                view.aboutParagraph.setText(thisEventObject.about)
+                view.location.setText(thisEventObject.location)
+                view.time.text="${thisEventObject.time}"
+                view.notifyButton.setText(" Notify Me")
+                view.mapButton.setText("Find on Map")
+                myList=thisEventObject.assocSponsors
+                initiateAdapter(view,myList,clickListener)
+            }
+
+        }
         return view
 
 
 
     }
 
-    fun createArray(){
-        eventCode= ArrayList()
+    override fun onDestroy() {
+        super.onDestroy()
+        adapter.unregister()
+    }
+   /* fun createArray(){
+        eventName= ArrayList()
         eventTitle=ArrayList()
         eventDescrip= ArrayList()
         eventImage=ArrayList()
@@ -67,17 +91,19 @@ class EventInfoFragment : Fragment() {
         eventImage.add("https://www.nationalgeographic.com/content/dam/travel/2019-digital/yosemite-guide/yosemite-national-park-california.jpg")
         eventImage.add("https://yt3.ggpht.com/a/AGF-l7_v3YS5U2yeCA-JaS4Yos54xjf3TFE6U5eeRA=s900-mo-c-c0xffffffff-rj-k-no")
         eventImage.add("https://coda.newjobs.com/api/imagesproxy/ms/cms/content30/images/liar-boss.jpg")
-        eventCode.add("gettitLADS")
-        eventCode.add("gettitLADS")
-        eventCode.add("gettitLADS")
-        eventCode.add("gettitLADS")
-        eventCode.add("gettitLADS")}
+        eventName.add("Butterfly event")
+        eventName.add("Car event")
+        eventName.add("Self Help Sem")
+        eventName.add("Head first Design Patterns")
+        eventName.add("whutwhutwhut")}*/
 
-    fun initiateAdapter(view:View){
+    fun initiateAdapter(view:View,myList:ArrayList<Long>,clickListener:(Long,Int)->Unit){
         val recView=view.findViewById<RecyclerView>(R.id.eventInfoRecyclerView)
         val manager=LinearLayoutManager(view.context)
         recView.setHasFixedSize(true)
         recView.layoutManager=manager
-        val adapter=EventInfoAdapter(view.context,eventImage,eventTitle,eventCode,eventDescrip)
+        val sponsColRef = FirebaseFirestore.getInstance().collection("Sponsors")
+        adapter=EventInfoAdapter(view.context,myList,sponsColRef,clickListener)
+        recView.adapter=adapter
     }
 }

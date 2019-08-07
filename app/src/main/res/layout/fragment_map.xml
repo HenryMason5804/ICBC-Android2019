@@ -2,35 +2,122 @@
 <com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:id="@+id/slidingpanel"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="bottom">
+    android:gravity="bottom"
+    app:umanoPanelHeight="300dp"
+    >
 
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <com.google.android.gms.maps.MapView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/mapview"/>
-    <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/mapview"
+        />
+    <ImageView
+        android:id="@+id/indoorMapImage"
+        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/slidingPanel"
-        android:weightSum="100"
-        android:gravity="center_horizontal">
-        <ToggleButton
-            android:layout_width="wrap_content"
-            android:showText="true"
-            android:layout_height="0dp"
-            android:layout_weight="20"
-            app:switchMinWidth="159dp"
-            android:textSize="30sp"
-            app:switchTextAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textOff="Outdoor"
-            android:textOn="Indoor"
-            android:scaleX="2"
-            android:scaleY="2"
-            android:id="@+id/switchButton"/>
+        android:src="@drawable/stauffer_lower_level"/>
+</FrameLayout>
 
+    <LinearLayout
+        android:minHeight="100dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:id="@+id/slidingPanelLinearLayout"
+        android:gravity="center_horizontal">
+        <RadioGroup
+            android:layout_margin="20dp"
+            android:id="@+id/radioGroup1"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:minHeight="50dp"
+            android:layout_marginTop="10dp"
+            android:weightSum="3"
+            android:layout_gravity="center_horizontal">
+
+        <RadioButton
+            android:checked="true"
+            android:id="@+id/radioButtonTab1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Outdoor"
+            android:button="@null"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:background="@drawable/radio_button_tab_selector"
+          />
+        <RadioButton
+            android:id="@+id/radioButtonTab2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Indoor"
+            android:button="@null"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:background="@drawable/radio_button_tab_selector"/>
+
+        </RadioGroup>
+        <RadioGroup
+            android:layout_margin="20dp"
+            android:id="@+id/indoorRadioGroup"
+            android:visibility="gone"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:minHeight="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal">
+
+            <RadioButton
+                android:checked="true"
+                android:id="@+id/indoorradioButtonTab1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="First Floor"
+                android:button="@null"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:background="@drawable/radio_button_tab_selector"
+                />
+            <RadioButton
+                android:id="@+id/indoorradioButtonTab2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Second Floor"
+                android:button="@null"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:background="@drawable/radio_button_tab_selector"/>
+            <RadioButton
+                android:id="@+id/indoorradioButtonTab3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Third Floor"
+                android:button="@null"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:background="@drawable/radio_button_tab_selector"/>
+
+        </RadioGroup>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/locationRecycler"
+            android:layout_marginBottom="20dp"/>
     </LinearLayout>
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 

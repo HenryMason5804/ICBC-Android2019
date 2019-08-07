@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_marginBottom="20dp"
+    android:theme="@style/Theme.MaterialComponents">
+<com.google.android.material.card.MaterialCardView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="12dp"
+    android:layout_alignParentBottom="true">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/event_info_image"
+        android:scaleType="centerCrop"
+        android:contentDescription="Image given by company"
+        android:baselineAlignBottom="true"/>
+    <TextView
+        android:layout_above="@+id/event_info_descr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:id="@+id/event_info_name"
+        android:textColor="#FFFFFF"/>
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:id="@+id/event_info_descr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textColor="#FFFFFF"
+        />
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>
+
+</RelativeLayout>

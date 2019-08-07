@@ -24,6 +24,7 @@ class ProfileFragment : Fragment() {
 fun initRecyclerAdapter(view:View){
     val recyclerView=view.findViewById<RecyclerView>(R.id.execTeamRecycler)
     val manager = LinearLayoutManager(view.context)
+    manager.orientation=LinearLayoutManager.HORIZONTAL
     recyclerView.setHasFixedSize(true)
     recyclerView.layoutManager = manager
     val myAdapter= profileAdapter(view.context)

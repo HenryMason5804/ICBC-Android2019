@@ -5,12 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.henrylearns.adapterpractice.DayModel
+import com.henrylearns.adapterpractice.MainActivity
 import com.henrylearns.adapterpractice.R
+import com.henrylearns.adapterpractice.dataobjects.FullEventObject
 
 class ScheduleFragment : Fragment() {
 
@@ -41,8 +44,7 @@ class ScheduleFragment : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
                 adapter = MyDayRecyclerViewAdapter(
-                        DayModel.ITEMS,
-                        listener
+                        DayModel.ITEMS,listener
                 )
             }
         }
@@ -53,6 +55,7 @@ class ScheduleFragment : Fragment() {
         super.onAttach(context)
         if (context is OnListFragmentInteractionListener) {
             listener = context
+            Toast.makeText(context,"KILLLLL ME",Toast.LENGTH_SHORT)
         } else {
             throw RuntimeException("$context must implement OnListFragmentInteractionListener")
         }
@@ -76,7 +79,7 @@ class ScheduleFragment : Fragment() {
      */
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: DayModel.DayItem)
+        fun onListFragmentInteraction(item:FullEventObject)
     }
 
     companion object {

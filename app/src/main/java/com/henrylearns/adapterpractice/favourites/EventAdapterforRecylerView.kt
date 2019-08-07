@@ -10,10 +10,31 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.firestore.CollectionReference
 import com.henrylearns.adapterpractice.R
+import com.henrylearns.adapterpractice.dataobjects.FullEventObject
+import com.henrylearns.adapterpractice.dataobjects.FullSponsorObject
 
 
-class EventAdapterforRecylerView(val context:Context, val imageURLs:ArrayList<String>, val eventTitle:ArrayList<String>, val eventCode:ArrayList<String>, val eventDescrip:ArrayList<String>, val clickListenerFunction:(eventName: String,myFrag:Fragment) -> Unit): RecyclerView.Adapter<EventAdapterforRecylerView.ViewHolder>() {
+class EventAdapterforRecylerView(val context:Context,val eventColref:CollectionReference, val clickListenerFunction:(id: Long,fragType:Int) -> Unit): RecyclerView.Adapter<EventAdapterforRecylerView.ViewHolder>() {
+    private var eventObjectList=ArrayList<FullEventObject>()
+    init {
+        eventColref.addSnapshotListener { snapshot, error ->
+            eventObjectList.clear()
+            if (error != null) {
+                Log.d("DatabaseReferenceFail", "Database reference error $error")
+            }
+            if (snapshot != null) {
+                for (document in snapshot) {
+                    val eventObject = document.toObject(FullEventObject::class.java)
+                    eventObjectList.add(eventObject)
+
+                }
+            }
+            notifyDataSetChanged()
+        }
+    }
+
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val eventImageView: ImageView =view.findViewById(R.id.event_image)
         val eventcodeView: TextView =view.findViewById(R.id.event_code)
@@ -23,15 +44,15 @@ class EventAdapterforRecylerView(val context:Context, val imageURLs:ArrayList<St
 
 
     override fun getItemCount(): Int {
-        return imageURLs.size
+        return eventObjectList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Glide.with(context).asBitmap().load(imageURLs.get(position)).into(holder.eventImageView)
-        holder.eventDescripView.text = eventDescrip.get(position)
-        holder.eventTitleView.text = eventTitle.get(position)
-        holder.eventcodeView.text = eventCode.get(position)
-        holder.itemView.setOnClickListener{clickListenerFunction(eventTitle[position], EventInfoFragment())
+        Glide.with(context).asBitmap().load(eventObjectList.get(position).image).into(holder.eventImageView)
+        holder.eventDescripView.text = eventObjectList.get(position).description
+        holder.eventTitleView.text = eventObjectList.get(position).name
+        holder.eventcodeView.text = eventObjectList.get(position).eventCode
+        holder.itemView.setOnClickListener{clickListenerFunction(eventObjectList[position].id, 3)
             Log.d("Henry","made it past the setOnClickListener")}
 
     }
