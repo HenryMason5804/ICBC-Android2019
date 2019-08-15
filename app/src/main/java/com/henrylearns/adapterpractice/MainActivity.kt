@@ -24,7 +24,6 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(), ScheduleFragment.OnListFragmentInteractionListener {
     public override fun onListFragmentInteraction(item: FullEventObject) {
-        Toast.makeText(this,"what",Toast.LENGTH_LONG).show()
         val bundle=Bundle()
         bundle.putLong("ID",item.id)
         bundle.putInt("fragType",3)
@@ -33,9 +32,7 @@ class MainActivity : AppCompatActivity(), ScheduleFragment.OnListFragmentInterac
         selectedItemStack.push(1)
         openFragment(myFrag)
     }
-    public fun whocares(){
 
-    }
 
     val firstFragment = ScheduleTabFragment()
     val secondFragment = rootFrameLayout()
@@ -52,10 +49,21 @@ class MainActivity : AppCompatActivity(), ScheduleFragment.OnListFragmentInterac
         setContentView(R.layout.bottom_navigation_view)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-        openFragment(firstFragment)
-        selectedItemStack = Stack()
-        selectedItemStack.push(0)
-        findViewById<BottomNavigationView>(R.id.nav_view).selectedItemId=R.id.navigation_favourites
+        if (intent.extras["Location"] != null) {
+            val newBundle=Bundle()
+            val thisFrag=MapFragment()
+            newBundle.putString("Location",intent.extras["Location"].toString())
+            thisFrag.arguments=newBundle
+            openFragment(thisFrag)
+            selectedItemStack = Stack()
+            selectedItemStack.push(2)
+            findViewById<BottomNavigationView>(R.id.nav_view).selectedItemId = R.id.navigation_map
+        } else {
+            openFragment(firstFragment)
+            selectedItemStack = Stack()
+            selectedItemStack.push(0)
+            findViewById<BottomNavigationView>(R.id.nav_view).selectedItemId = R.id.navigation_home
+        }
     }
 
     override fun onBackPressed() {

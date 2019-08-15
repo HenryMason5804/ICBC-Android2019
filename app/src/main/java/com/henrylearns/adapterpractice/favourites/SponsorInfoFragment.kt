@@ -1,6 +1,8 @@
 package com.henrylearns.adapterpractice.favourites
 
 
+import android.content.Intent
+import android.net.Uri
 import android.net.sip.SipSession
 import android.os.Bundle
 import android.renderscript.Sampler
@@ -26,12 +28,13 @@ import java.util.*
 class SponsorInfoFragment : Fragment() {
 
 lateinit var adapter:SponsorInfoAdapter
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
         lateinit var clickListener:(Long,Int)->Unit
-        val mybundle = arguments
+        var mybundle = arguments
         val ppFrag=parentFragment?.parentFragment
         val pFrag=parentFragment
         if (ppFrag is rootFrameLayout){
@@ -42,6 +45,9 @@ lateinit var adapter:SponsorInfoAdapter
         val view = inflater.inflate(R.layout.fragment_sponsor_info, container, false)
         var sponsorColRef: CollectionReference = FirebaseFirestore.getInstance().collection("Sponsors")
         val thisSpons = sponsorColRef.whereEqualTo("id", mybundle!!.getLong("ID")).get()
+        view.linkedInButton.setOnClickListener{
+            Toast.makeText(context,"SABA THIS THING DOESN'T DO ANYTHING",Toast.LENGTH_LONG)
+        }
         var array: (ArrayList<Long>) = ArrayList<Long>()
         thisSpons.addOnSuccessListener { documents ->
             for (document in documents) {
@@ -52,11 +58,16 @@ lateinit var adapter:SponsorInfoAdapter
                 view.aboutParagraph.setText(document["description"].toString())
                 view.linkedInButton.setText("LinkedIn")
                 view.companyButton.setText("Company Website")
+                view.companyButton.setOnClickListener{
+                    val url:String =document["companyWebsite"] as String
+                    val i= Intent(Intent.ACTION_VIEW)
+                    i.data=Uri.parse(url)
+                    startActivity(i)
+                }
                 array = documentObj.assocEvents
             }
             initiateAdapter(view, array,clickListener)
         }
-
         return view
     }
     override fun onDestroy() {
@@ -70,7 +81,7 @@ lateinit var adapter:SponsorInfoAdapter
         recView.setHasFixedSize(true)
         recView.layoutManager = manager
         val eventColRef = FirebaseFirestore.getInstance().collection("Events")
-        val adapter = SponsorInfoAdapter(view.context, myList, eventColRef,myclickListener)
+        adapter = SponsorInfoAdapter(view.context, myList, eventColRef,myclickListener)
         recView.adapter = adapter
     }
 

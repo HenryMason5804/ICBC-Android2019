@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="280dp"
+    android:background="#FFFFFF"
+    android:elevation="15dp"
+    android:layout_margin="5dp">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_gravity="center"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:id="@+id/circleImage"
+        android:src="@drawable/ic_icon_add_filled"
+        />
+        <LinearLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/popupExecView"
+                android:text="name"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textColor="@color/trademarkRed"/>
+            <TextView
+                android:text="position"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                />
+
+            <TextView
+                android:text="someEmail.com"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:linksClickable="true"
+                android:autoLink="web|email" />
+        </LinearLayout>
+</LinearLayout>

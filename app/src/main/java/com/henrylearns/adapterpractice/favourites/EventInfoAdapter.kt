@@ -63,8 +63,8 @@ class EventInfoAdapter(val context: Context,myList:ArrayList<Long>,sponsColRef:C
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val eventImageView: ImageView =view.findViewById(R.id.event_info_image)
-        val eventDescripView: TextView =view.findViewById(R.id.event_info_name)
-        val eventNameView: TextView =view.findViewById(R.id.event_info_descr)
+        val eventDescripView: TextView =view.findViewById(R.id.event_info_descr)
+        val eventNameView: TextView =view.findViewById(R.id.event_info_name)
     }
 
 

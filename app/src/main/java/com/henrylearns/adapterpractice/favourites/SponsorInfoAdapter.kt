@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ListenerRegistration
 import com.henrylearns.adapterpractice.R
+import com.henrylearns.adapterpractice.dataobjects.FullEventObject
 import com.henrylearns.adapterpractice.dataobjects.FullSponsorObject
 import com.henrylearns.adapterpractice.dataobjects.SponsorInfoViewHolderObject
 import kotlinx.android.synthetic.main.fragment_event_info_viewholder.*
@@ -25,7 +26,7 @@ import java.util.*
 
 class SponsorInfoAdapter(val context: Context,val assocEventID:MutableList<Long> ,val dbr:CollectionReference,val listener:((sponsorID:Long, fragType:Int)->Unit)): RecyclerView.Adapter<SponsorInfoAdapter.ViewHolder>() {
     var registration:ListenerRegistration? = null
-    var objectArrayList:ArrayList<FullSponsorObject> = ArrayList()
+    var objectArrayList:ArrayList<FullEventObject> = ArrayList()
 
   init {
 
@@ -35,8 +36,9 @@ class SponsorInfoAdapter(val context: Context,val assocEventID:MutableList<Long>
           if (snapshot != null) {
               objectArrayList.clear()
               for (document in snapshot) {
+                  var id=document.data["id"]
                   if (assocEventID.contains((document.data["id"]) as Long)) {
-                      val newDoc = document.toObject(FullSponsorObject::class.java)
+                      val newDoc = document.toObject(FullEventObject::class.java)
                       objectArrayList.add(newDoc)
                   }
 
@@ -65,9 +67,8 @@ class SponsorInfoAdapter(val context: Context,val assocEventID:MutableList<Long>
         }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.d("frick","yeet ${objectArrayList[position].name}")
-        holder.sponsorName.text=objectArrayList[position].name
-        holder.sponsorDescrip.text=objectArrayList[position].about
+        holder.eventName.text=objectArrayList[position].title
+        holder.eventDescrip.text=objectArrayList[position].about
         Glide.with(context).asBitmap().load(objectArrayList[position].image).into(holder.imageView)
         holder.itemView.setOnClickListener{listener(objectArrayList[position].id,3)}
 
@@ -75,8 +76,8 @@ class SponsorInfoAdapter(val context: Context,val assocEventID:MutableList<Long>
 
     class ViewHolder(view: View):RecyclerView.ViewHolder(view){
         var imageView=view.findViewById<ImageView>(R.id.event_info_image)
-        var sponsorName=view.findViewById<TextView>(R.id.event_info_name)
-        var sponsorDescrip:TextView=view.findViewById(R.id.event_info_descr)
+        var eventName=view.findViewById<TextView>(R.id.event_info_name)
+        var eventDescrip=view.findViewById<TextView>(R.id.event_info_descr)
 
     }
 }

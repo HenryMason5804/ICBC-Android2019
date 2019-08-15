@@ -9,6 +9,7 @@ class ScheduleTabAdapter(fm: FragmentManager, private val context: Context) : Fr
 
     override fun getItem(position: Int): Fragment {
         return when(position){
+            //TODO Add bundle to each tab so that adapter can fill schedules differently
             0 -> ScheduleFragment.newInstance(position)
             else -> ScheduleFragment.newInstance(position)
         }

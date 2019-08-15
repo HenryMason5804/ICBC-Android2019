@@ -15,11 +15,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.henrylearns.adapterpractice.R
 
 class SponsorFragment : Fragment() {
-    lateinit var myadapter:SponsorAdapterforRecyclerView
     lateinit var sponsorNames: ArrayList<String>
     lateinit var brief: ArrayList<String>
     lateinit var description: ArrayList<String>
     private lateinit var imgurl: ArrayList<String>
+    lateinit var adapter:SponsorAdapterforRecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.d("Henry","enteredSponsorFragment")
@@ -39,19 +39,24 @@ class SponsorFragment : Fragment() {
             recyclerView.setHasFixedSize(true)
             recyclerView.layoutManager = manager
             var sponsorRef: CollectionReference=FirebaseFirestore.getInstance().collection("Sponsors")
-            val myAdapter = SponsorAdapterforRecyclerView(
+
+            adapter = SponsorAdapterforRecyclerView(
                     Glide.with(context!!),
                     sponsorRef,
                     parentFragment.myClickListener
             )
             Log.d("DebugNoAdapter", "instantiateadapter called")
-            recyclerView.adapter = myAdapter
+            recyclerView.adapter = adapter
             Log.d("DebugNoAdapter", "Attached adapter called")
         } else {
             throw Exception("Parent of parent fragment must be of type rootFrameLayout")
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        adapter.unregister()
+    }
 
     class Sponsor(
             var id: Float,

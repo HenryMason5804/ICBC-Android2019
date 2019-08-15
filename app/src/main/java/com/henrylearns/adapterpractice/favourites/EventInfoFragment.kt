@@ -1,16 +1,29 @@
 package com.henrylearns.adapterpractice.favourites
 
+import android.app.Activity
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.bumptech.glide.Glide
+import com.google.android.gms.maps.MapFragment
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.henrylearns.adapterpractice.MainActivity
 import com.henrylearns.adapterpractice.R
 import com.henrylearns.adapterpractice.dataobjects.FullEventObject
 import kotlinx.android.synthetic.main.fragment_event_info.*
@@ -25,14 +38,32 @@ import kotlinx.android.synthetic.main.fragment_sponsor_info.view.introduction
 
 class EventInfoFragment : Fragment() {
 
-
     lateinit var adapter:EventInfoAdapter
+    lateinit var locName:String
+
+    private fun createNotificationChannel(context:Context) {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "Event Upcoming"
+            val descriptionText = "Test Notification"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel("Channel1", name, importance).apply {
+                description = descriptionText
+            }
+            // Register the channel with the system
+            val notificationManager: NotificationManager =
+                    context.getSystemService( Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_event_info, container, false)
+        createNotificationChannel(this.context!!)
         val mybundle=arguments
         var myList: ArrayList<Long>
         lateinit var clickListener:(Long,Int)->Unit
@@ -49,16 +80,33 @@ class EventInfoFragment : Fragment() {
             for (document in documents) {
                 val thisEventObject = document.toObject(FullEventObject::class.java)
                 Glide.with(view).asBitmap().load(thisEventObject.image).into(view.imageView)
-                view.eventName.setText(thisEventObject.name)
+                view.eventName.setText(thisEventObject.title)
                 view.introduction.setText(thisEventObject.description)
                 view.aboutParagraph.setText(thisEventObject.about)
                 view.location.setText(thisEventObject.location)
-                view.time.text="${thisEventObject.time}"
+                view.time.text="${thisEventObject.startDate}"
                 view.notifyButton.setText(" Notify Me")
                 view.mapButton.setText("Find on Map")
-                myList=thisEventObject.assocSponsors
+                myList=thisEventObject.associatedSponsors
                 initiateAdapter(view,myList,clickListener)
+                locName=thisEventObject.location
             }
+            thisEvent.addOnFailureListener{exception->
+                Log.d("fuck","exception")
+            }
+
+        }
+        view.notifyButton.setOnClickListener{
+            val someValue=context?.let { it1 -> NotificationCompat.Builder(it1,"Channel1") .setSmallIcon(R.drawable.ic_priority_high_black_24dp).setContentTitle("Event Upcoming").setContentText("You requested to be notified for an event starting in 10 minutes").setPriority(NotificationCompat.PRIORITY_DEFAULT)}
+            with (NotificationManagerCompat.from(context!!)){
+                notify(1,someValue!!.build())
+            }
+
+        }
+        view.mapButton.setOnClickListener{
+           val i= Intent(context,MainActivity::class.java)
+            i.putExtra("Location",locName)
+            startActivity(i)
 
         }
         return view

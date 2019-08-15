@@ -44,7 +44,7 @@ class ScheduleFragment : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
                 adapter = MyDayRecyclerViewAdapter(
-                        DayModel.ITEMS,listener
+                        columnCount,listener
                 )
             }
         }
@@ -78,13 +78,11 @@ class ScheduleFragment : Fragment() {
      * for more information.
      */
     interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         fun onListFragmentInteraction(item:FullEventObject)
     }
 
     companion object {
 
-        // TODO: Customize parameter argument names
         const val ARG_COLUMN_COUNT = "column-count"
 
         // TODO: Customize parameter initialization

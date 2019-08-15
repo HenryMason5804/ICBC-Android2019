@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.henrylearns.adapterpractice.DayModel
 import com.henrylearns.adapterpractice.R
 import com.henrylearns.adapterpractice.dataobjects.FullEventObject
@@ -17,18 +19,25 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class MyDayRecyclerViewAdapter(
-        private val mValues: List<DayModel.DayItem>,
+        private val column:Int,
         private val mListener: ScheduleFragment.OnListFragmentInteractionListener?
 ) : RecyclerView.Adapter<MyDayRecyclerViewAdapter.ViewHolder>() {
-
+    lateinit var dailyEventCollectionReference: Query
     private val mOnClickListener: View.OnClickListener
     var eventList=ArrayList<FullEventObject>()
     init {
         FirebaseFirestore.getInstance()
         val myColRef=FirebaseFirestore.getInstance().collection("Events")
         //replace with calendar instance Calendar
-        val day1=Date(120,0,19)
-        var dailyEventCollectionReference=myColRef.orderBy("time").startAfter(day1)
+
+        var day2 =Calendar.getInstance()
+        day2.set(2019,2,20)
+        if (column==0){
+             dailyEventCollectionReference=myColRef.orderBy("startDate").endBefore(day2)
+        }
+        else{
+            dailyEventCollectionReference=myColRef.orderBy("startDate").startAfter(day2)
+        }
         dailyEventCollectionReference.addSnapshotListener{snapshot,error->
             if (error !=null){
                 Log.d("SnapshotFailure","$error")
@@ -56,13 +65,13 @@ class MyDayRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var formatter:Format=SimpleDateFormat("MMMM-dd HH:mm")
-        val string=formatter.format(eventList[position].time)
-        val myCalendar1=Calendar.getInstance().also{it.time=eventList[position].time}
-        val myCalendar2=Calendar.getInstance().also{it.time=eventList[position].timeEnd}
+        var formatter:Format=SimpleDateFormat("MMM-dd HH:mm")
+        val string=formatter.format(eventList[position].startDate)
+        val myCalendar1=Calendar.getInstance().also{it.time=eventList[position].startDate}
+        val myCalendar2=Calendar.getInstance().also{it.time=eventList[position].endDate}
 
         holder.mIdView.text = string
-        holder.mContentView.text = eventList[position].name
+        holder.mContentView.text = eventList[position].title
         holder.mDuration.text = "${(myCalendar2.timeInMillis-myCalendar1.timeInMillis)/(60*1000)}m"
         holder.mLocation.text = eventList[position].location
         with(holder.mView) {

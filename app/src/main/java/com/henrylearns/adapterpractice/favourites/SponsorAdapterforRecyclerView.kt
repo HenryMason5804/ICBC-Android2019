@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.RequestManager
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.ListenerRegistration
 import com.henrylearns.adapterpractice.R
 import com.henrylearns.adapterpractice.dataobjects.FullSponsorObject
 import com.henrylearns.adapterpractice.dataobjects.SponsorViewHolderObject
@@ -16,6 +17,14 @@ import com.henrylearns.adapterpractice.dataobjects.SponsorViewHolderObject
 
 class SponsorAdapterforRecyclerView(val request:RequestManager, val sponsColRef:CollectionReference,val listener: (eventID: Long,fragType:Int) -> Unit) : RecyclerView.Adapter<SponsorAdapterforRecyclerView.ViewHolder>(){
 private var adapterList=ArrayList<FullSponsorObject>()
+    var registration: ListenerRegistration? = null
+
+    fun unregister(){
+        adapterList.clear()
+        registration?.remove()
+        registration=null
+    }
+
     init {
     sponsColRef.addSnapshotListener{snapshot,error->
         adapterList.clear()
@@ -32,7 +41,8 @@ private var adapterList=ArrayList<FullSponsorObject>()
         notifyDataSetChanged()
         }
 
-    }class ViewHolder(view:View): RecyclerView.ViewHolder(view){
+    }
+    class ViewHolder(view:View): RecyclerView.ViewHolder(view){
            val sponsorImageView: ImageView =itemView.findViewById(R.id.product_image)
             val sponsorLevelView:TextView =itemView.findViewById(R.id.product_title)
             val sponsorNameView:TextView=itemView.findViewById(R.id.product_price)

@@ -22,18 +22,17 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FirebaseFirestore
 import com.henrylearns.adapterpractice.R
 import com.henrylearns.adapterpractice.dataobjects.LocationObject
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
 
-class MapFragment : Fragment(),OnMapReadyCallback {
+class MapFragment (): Fragment(),OnMapReadyCallback {
 
-   var radiobuttonOut:RadioButton?=null
     var radiobuttonIn:RadioButton?=null
-    var radiobuttonFloor1:RadioButton?=null
-    var radiobuttonFloor2:RadioButton?=null
-    var radiobuttonFloor3:RadioButton?=null
+
     var slidePanel:SlidingUpPanelLayout?=null
 
 
@@ -45,12 +44,22 @@ class MapFragment : Fragment(),OnMapReadyCallback {
 
         something.put("Stauffer", map?.addMarker(MarkerOptions().position(LatLng(44.228488, -76.496531)).title("Stauffer Library").snippet("Here there be books")))
         something.put("Goode's Hall",map?.addMarker(MarkerOptions().position(LatLng(44.228518, -76.497547)).title("Goodes Hall").snippet("This is where you go if you want to flex your neighbourhood")))
-        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(44.2258, -76.4948),15f))
-        mMap=map
+        if(mloc!=""){
+            something[mloc]!!.showInfoWindow()
+            map?.moveCamera(CameraUpdateFactory.newLatLngZoom(something[mloc]!!.position,16f))
+            slidePanel?.panelState=SlidingUpPanelLayout.PanelState.HIDDEN
+            mMap=map
+        }else if (mloc=="") {
+            map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(44.2258, -76.4948), 15f))
+            mMap=map
+        }
+
+
     }
 
     private val MAPVIEW_BUNDLE_KEY = "MapViewBundleKey"
     lateinit var mMapView: MapView
+    lateinit var  mloc:String //Stauffer
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val myView = inflater.inflate(R.layout.fragment_map, container, false)
@@ -61,38 +70,54 @@ class MapFragment : Fragment(),OnMapReadyCallback {
         val myMap:MapView=myView.findViewById<MapView>(R.id.mapview)
         mMapView = myMap
         mMapView.onCreate(mapViewBundle)
-
         mMapView.getMapAsync(this)
         setupRadioListeners(myView)
-        val objectList= createAdapterObjectList()
-        slidePanel=view?.findViewById(R.id.indoorradioButtonTab1)
-        val clickListen:(loc:LocationObject)->Unit={loc->7
+        val mbundle=arguments
+        if (mbundle!=null){
+            mloc=mbundle["Location"].toString()
+        }else
+            mloc=""
+        slidePanel=myView?.findViewById(R.id.slidingpanel)
+        val clickListen:(loc:LocationObject)->Unit= { loc ->
+            when (loc.floor) {
+                1L -> {
+                    radiobuttonIn = view?.findViewById(R.id.indoorradioButtonTab1)
+                    radiobuttonIn?.isChecked = true
+                }
+                2L -> {
+                    radiobuttonIn = view?.findViewById(R.id.indoorradioButtonTab2)
+                    radiobuttonIn?.isChecked = true
+                }
+                3L -> {
+                    radiobuttonIn = view?.findViewById(R.id.indoorradioButtonTab3)
+                    radiobuttonIn?.isChecked = true
+                }
+            }
             something[loc.locationName]?.showInfoWindow()
-            mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(something[loc.locationName]?.position,16f))
-            slidePanel?.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED)
-            Toast.makeText(context,"yeet",Toast.LENGTH_SHORT)
+            mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(something[loc.locationName]?.position, 16f))
+            slidePanel?.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED)
+            Toast.makeText(context, "yeet", Toast.LENGTH_SHORT)
         }
-        setupRecyclerAdapter(myView,objectList,clickListen)
+
+        val dbr=FirebaseFirestore.getInstance()
+        val colRef=dbr.collection("Locations")
+        setupRecyclerAdapter(myView,colRef,clickListen)
 
     return myView
     }
 
-    private fun setupRecyclerAdapter(myView:View, objectList:ArrayList<LocationObject>,clickListen:(LocationObject)->Unit){
+
+    private fun setupRecyclerAdapter(myView:View, colRef:CollectionReference,clickListen:(LocationObject)->Unit){
        val recycler_view= myView.findViewById<RecyclerView>(R.id.locationRecycler)
        val manager= LinearLayoutManager(myView.context)
         recycler_view.setHasFixedSize(true)
         recycler_view.layoutManager=manager
-        val adapter=mapAdapter(myView.context,objectList,clickListen)
+        val adapter=mapAdapter(myView.context,colRef,clickListen)
         recycler_view.adapter=adapter
 
     }
-    fun createAdapterObjectList():ArrayList<LocationObject>{
-        val adapterList=ArrayList<LocationObject>()
-        adapterList.add(LocationObject("https://www.theglobeandmail.com/resizer/N2gndinET8Jg1Ukij-HJZLnctbU=/620x0/filters:quality(80)/arc-anglerfish-tgam-prod-tgam.s3.amazonaws.com/public/TC74J3SVIJHJ5I756PPFDTKXNE.jpg", "Stauffer", "food Tasting and eating and also sitting on"))
-        adapterList.add(LocationObject("https://d3vhc53cl8e8km.cloudfront.net/hello-staging/wp-content/uploads/2017/12/22223742/Events-1200x630.jpg", "Goode's Hall", "Learn to get people to smoke molly and other such FAT DROGUES"))
-        adapterList.add(LocationObject("https://d33jrn6nlx7mhr.cloudfront.net/_novaimg/galleria/1356619.jpg", "THE WEDDING PAV", "Get group married you fools"))
-        return adapterList
-    }
+
+
 fun setupRadioListeners(myView:View) {
     val radGroup1 = myView.findViewById<RadioGroup>(R.id.radioGroup1)
     radGroup1.setOnCheckedChangeListener { _, buttonID ->
@@ -128,6 +153,11 @@ fun setupRadioListeners(myView:View) {
 
     override fun onStart() {
         super.onStart()
+        val mbundle=arguments
+        if (mbundle!=null){
+            mloc=mbundle["Location"].toString()
+        }else
+            mloc=""
         mMapView.onStart()
     }
 
