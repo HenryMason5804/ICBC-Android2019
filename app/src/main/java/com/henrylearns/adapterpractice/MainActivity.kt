@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), ScheduleFragment.OnListFragmentInterac
 
     val firstFragment = ScheduleTabFragment()
     val secondFragment = rootFrameLayout()
-    val thirdFragment = MapFragment()
+    var thirdFragment = MapFragment()
     val fourthFragment = ProfileFragment()
     var current: Fragment = SponsorInfoFragment()
     lateinit var selectedItemStack: Stack<Int>
@@ -51,10 +51,8 @@ class MainActivity : AppCompatActivity(), ScheduleFragment.OnListFragmentInterac
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         if (intent.extras["Location"] != null) {
             val newBundle=Bundle()
-            val thisFrag=MapFragment()
             newBundle.putString("Location",intent.extras["Location"].toString())
-            thisFrag.arguments=newBundle
-            openFragment(thisFrag)
+            thirdFragment.arguments=newBundle
             selectedItemStack = Stack()
             selectedItemStack.push(2)
             findViewById<BottomNavigationView>(R.id.nav_view).selectedItemId = R.id.navigation_map

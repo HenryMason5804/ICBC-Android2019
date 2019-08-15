@@ -35,6 +35,7 @@ private lateinit var mPopupWindow:PopupWindow
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view=inflater.inflate(R.layout.fragment_profile,container,false)
+        mPopupWindow=PopupWindow()
         view.setOnClickListener { v->
             if (mPopupWindow.isShowing){
                 mPopupWindow.dismiss()
@@ -43,8 +44,8 @@ private lateinit var mPopupWindow:PopupWindow
 
         val listener:(FullExecObject)->Unit={
             val popView=layoutInflater.inflate(R.layout.exec_profile_popup_layout,null,false)
-           mPopupWindow=PopupWindow(popView, ViewGroup.LayoutParams.MATCH_PARENT,
-                   ViewGroup.LayoutParams.WRAP_CONTENT)
+            mPopupWindow=PopupWindow(popView, ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT)
             if(Build.VERSION.SDK_INT>=21){
                 mPopupWindow.setElevation(5.0f)}
         popView.popupExecView.text="${it.firstName}  ${it.lastName}"

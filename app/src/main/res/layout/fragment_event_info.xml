@@ -32,7 +32,7 @@
             android:layout_margin="16dp" android:id="@+id/notifyButton"/>
         <Button android:layout_width="158dp" android:layout_height="48dp"
             android:layout_margin="16dp" android:id="@+id/mapButton"
-            android:drawableLeft="@drawable/common_google_signin_btn_icon_dark_normal"/>
+            android:drawableLeft="@drawable/ic_map_black_24dp"/>
     </LinearLayout>
     <TextView android:layout_width="match_parent" android:layout_height="24dp"
         android:text="About"
