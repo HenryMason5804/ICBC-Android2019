@@ -41,13 +41,12 @@ class MapFragment (): Fragment(),OnMapReadyCallback {
     var something =HashMap<String,Marker?>()
     var mMap:GoogleMap?=null
     override fun onMapReady(map: GoogleMap?) {
-
         something.put("Stauffer", map?.addMarker(MarkerOptions().position(LatLng(44.228488, -76.496531)).title("Stauffer Library").snippet("Here there be books")))
         something.put("Goode's Hall",map?.addMarker(MarkerOptions().position(LatLng(44.228518, -76.497547)).title("Goodes Hall").snippet("This is where you go if you want to flex your neighbourhood")))
         if(mloc!=""){
             something[mloc]!!.showInfoWindow()
             map?.moveCamera(CameraUpdateFactory.newLatLngZoom(something[mloc]!!.position,16f))
-            slidePanel?.panelState=SlidingUpPanelLayout.PanelState.HIDDEN
+            slidePanel?.panelState=SlidingUpPanelLayout.PanelState.COLLAPSED
             mMap=map
         }else if (mloc=="") {
             map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(44.2258, -76.4948), 15f))
@@ -59,7 +58,7 @@ class MapFragment (): Fragment(),OnMapReadyCallback {
 
     private val MAPVIEW_BUNDLE_KEY = "MapViewBundleKey"
     lateinit var mMapView: MapView
-    lateinit var  mloc:String //Stauffer
+    private lateinit var  mloc:String //Stauffer
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val myView = inflater.inflate(R.layout.fragment_map, container, false)
@@ -169,6 +168,11 @@ fun setupRadioListeners(myView:View) {
 
     override fun onPause() {
         mMapView.onPause()
+        if (arguments!=null){
+            val bundle=Bundle()
+            bundle.putString("Location","")
+            arguments=bundle
+        }
         super.onPause()
     }
 

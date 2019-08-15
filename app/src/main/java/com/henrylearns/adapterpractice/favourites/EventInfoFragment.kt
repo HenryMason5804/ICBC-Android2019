@@ -106,6 +106,7 @@ class EventInfoFragment : Fragment() {
         view.mapButton.setOnClickListener{
            val i= Intent(context,MainActivity::class.java)
             i.putExtra("Location",locName)
+            i.flags=(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(i)
 
         }
