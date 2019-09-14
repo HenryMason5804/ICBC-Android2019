@@ -55,7 +55,6 @@ class ScheduleFragment : Fragment() {
         super.onAttach(context)
         if (context is OnListFragmentInteractionListener) {
             listener = context
-            Toast.makeText(context,"KILLLLL ME",Toast.LENGTH_SHORT)
         } else {
             throw RuntimeException("$context must implement OnListFragmentInteractionListener")
         }
