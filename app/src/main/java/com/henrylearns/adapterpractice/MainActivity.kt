@@ -25,7 +25,7 @@ import java.util.*
 class MainActivity : AppCompatActivity(), ScheduleFragment.OnListFragmentInteractionListener {
     public override fun onListFragmentInteraction(item: FullEventObject) {
         val bundle=Bundle()
-        bundle.putLong("ID",item.id)
+        bundle.putLong("ID",item.id.toLong())
         bundle.putInt("fragType",3)
         var myFrag=rootFrameLayout()
         myFrag.arguments=bundle
@@ -56,7 +56,18 @@ class MainActivity : AppCompatActivity(), ScheduleFragment.OnListFragmentInterac
             selectedItemStack = Stack()
             selectedItemStack.push(2)
             findViewById<BottomNavigationView>(R.id.nav_view).selectedItemId = R.id.navigation_map
-        } else {
+        }else if (intent.extras["eventNotifID"]!=null) {
+            var newbundle = Bundle()
+            newbundle.putInt("fragType",3)
+            newbundle.putLong("ID",intent.extras["eventNotifID"] as Long)
+            newbundle.putBoolean("fromEventNotif",true)
+            secondFragment.arguments=newbundle
+            selectedItemStack=Stack()
+            selectedItemStack.push(1)
+            openFragment(secondFragment)
+           findViewById<BottomNavigationView>(R.id.nav_view).selectedItemId=R.id.navigation_favourites
+        }
+        else {
             openFragment(firstFragment)
             selectedItemStack = Stack()
             selectedItemStack.push(0)
@@ -67,19 +78,23 @@ class MainActivity : AppCompatActivity(), ScheduleFragment.OnListFragmentInterac
     override fun onBackPressed() {
         if (selectedItemStack.size <= 1) {
             val alertDialog = AlertDialog.Builder(this)
-            alertDialog.setTitle("Ar' ya exitin'?")
-            alertDialog.setPositiveButton("GET ME OUT", { dialog, which ->
+            alertDialog.setTitle("Would You Like to Exit the App?'?")
+            alertDialog.setPositiveButton("Yes Please", { dialog, which ->
                 Toast.makeText(this, "GOODBYE FOOL", Toast.LENGTH_SHORT).show()
                 Thread.sleep(200)
                 finishAffinity()
             })
-            alertDialog.setNegativeButton("We OK", { dialog, which -> return@setNegativeButton })
+            alertDialog.setNegativeButton("No Thank You", { dialog, which -> return@setNegativeButton })
             alertDialog.show()
             return
         }
         when (current) {
             is rootFrameLayout -> {
-                Log.d("Henry", "enteredfirstFragment")
+                if (intent.extras["eventNotifID"]!=null){
+                    secondFragment.arguments=null
+                    intent.removeExtra("eventNotifID")
+                    openFragment(secondFragment)
+                }
                 if (!((current as rootFrameLayout).doOnBackPressed())) {
                     super.onBackPressed()
                 } else return
@@ -127,6 +142,7 @@ class MainActivity : AppCompatActivity(), ScheduleFragment.OnListFragmentInterac
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_favourites -> {
+
                 openFragment(secondFragment)
                 current = secondFragment
                 selectedItemStack.push(1)

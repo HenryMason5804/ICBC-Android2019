@@ -70,7 +70,7 @@ class SponsorInfoAdapter(val context: Context,val assocEventID:MutableList<Long>
         holder.eventName.text=objectArrayList[position].title
         holder.eventDescrip.text=objectArrayList[position].about
         Glide.with(context).asBitmap().load(objectArrayList[position].image).into(holder.imageView)
-        holder.itemView.setOnClickListener{listener(objectArrayList[position].id,3)}
+        holder.itemView.setOnClickListener{listener(objectArrayList[position].id.toLong(),3)}
 
         }
 

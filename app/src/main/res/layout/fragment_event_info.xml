@@ -9,6 +9,8 @@
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
+        android:elevation="20dp"
+        android:outlineAmbientShadowColor="@color/grey"
         android:layout_width="match_parent"
         android:scaleType="centerCrop"
         android:layout_height="200dp"
@@ -16,29 +18,42 @@
     <TextView android:layout_width="match_parent" android:layout_height="32dp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"
         android:text="CompanyName"
-        android:id="@+id/eventName"/>
+        android:id="@+id/eventName"
+        android:paddingHorizontal="10dp"/>
     <TextView android:layout_width="match_parent" android:layout_height="19dp"
         android:id="@+id/introduction"
         android:text="Brief Intro"
+        android:paddingHorizontal="10dp"
         />
     <TextView android:layout_width="match_parent" android:layout_height="19dp"
-        android:id="@+id/location"/>
+        android:id="@+id/location"
+        android:paddingHorizontal="10dp"/>
     <TextView android:layout_width="match_parent" android:layout_height="19dp"
-    android:id="@+id/time"/>
+    android:id="@+id/time"
+        android:paddingHorizontal="10dp"/>
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="horizontal" android:gravity="center">
+        android:orientation="horizontal" android:gravity="center"
+        android:paddingHorizontal="10dp">
         <Button android:layout_width="158dp" android:layout_height="48dp"
-            android:layout_margin="16dp" android:id="@+id/notifyButton"/>
+            android:background="@color/trademarkRedFaded2"
+            android:layout_margin="16dp" android:id="@+id/notifyButton"
+            android:drawableLeft="@drawable/ic_notifications_black_24dp"
+            android:textColor="@color/trademarkRed"/>
         <Button android:layout_width="158dp" android:layout_height="48dp"
+            android:background="@color/trademarkRedFaded2"
             android:layout_margin="16dp" android:id="@+id/mapButton"
-            android:drawableLeft="@drawable/ic_map_black_24dp"/>
+            android:drawableLeft="@drawable/ic_map_black_24dp"
+            android:textColor="@color/trademarkRed"/>
+
     </LinearLayout>
     <TextView android:layout_width="match_parent" android:layout_height="24dp"
         android:text="About"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:paddingHorizontal="10dp"/>
     <TextView android:layout_width="match_parent" android:layout_height="101dp"
         android:textSize="16sp"
+        android:paddingHorizontal="10dp"
         android:id="@+id/aboutParagraph"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:text="Pulvinar iaculis venenatis nec senectus auctor pretium eget phasellus ullamcorper suscipit, ligula sed turpis quis curae mollis dolor commodo turpis dui, fusce consectetur vitae venenatis volutpat porta semper posuere bibendum."/>
@@ -48,7 +63,9 @@
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"
 
         />
-    <LinearLayout android:layout_width="match_parent" android:layout_height="500dp">
+    <LinearLayout
+        android:paddingHorizontal="10dp"
+        android:layout_width="match_parent" android:layout_height="500dp">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/eventInfoRecyclerView"
             android:layout_width="match_parent"

@@ -3,7 +3,7 @@ package com.henrylearns.adapterpractice.dataobjects
 import java.util.Date
 import java.sql.Time
 
-data class FullEventObject (val id:Long=0,
+data class FullEventObject (val id:Long=0L,
                             val associatedSponsors:(ArrayList<Long>)=ArrayList<Long>(),
                             val location:String="",//This I think might need to have the name of the place and co-ordinates has the stuff that is used in google maps
                             val about:String="",

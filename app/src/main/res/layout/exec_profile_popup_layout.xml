@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
     android:layout_height="280dp"
     android:background="#FFFFFF"
     android:elevation="15dp"
-    android:layout_margin="5dp">
+    android:layout_margin="5dp"
+    app:layout_constraintCircleRadius="5dp">
     <de.hdodenhof.circleimageview.CircleImageView
+        android:padding="10dp"
         android:layout_gravity="center"
         android:layout_width="120dp"
         android:layout_height="120dp"
@@ -14,8 +18,9 @@
         />
         <LinearLayout
             android:layout_gravity="center"
+            android:layout_marginStart="5dp"
             android:gravity="center"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
             <TextView
@@ -27,6 +32,7 @@
                 android:textColor="@color/trademarkRed"/>
             <TextView
                 android:text="position"
+                android:id="@+id/execPosition"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
@@ -34,9 +40,23 @@
 
             <TextView
                 android:text="someEmail.com"
+                android:id="@+id/execEmail"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:linksClickable="true"
                 android:autoLink="web|email" />
         </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ImageButton
+        android:src="@drawable/linked_in"
+        android:scaleType="fitCenter"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/linkedInButton"
+
+        />
+    </LinearLayout>
 </LinearLayout>

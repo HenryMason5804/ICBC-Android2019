@@ -61,7 +61,7 @@ class EventAdapterforRecylerView(val context:Context,val eventColref:CollectionR
         holder.eventDescripView.text = eventObjectList.get(position).description
         holder.eventTitleView.text = eventObjectList.get(position).title
         holder.eventcodeView.text = eventObjectList.get(position).eventCode
-        holder.itemView.setOnClickListener{clickListenerFunction(eventObjectList[position].id, 3)
+        holder.itemView.setOnClickListener{clickListenerFunction(eventObjectList[position].id.toLong(), 3)
             Log.d("Henry","made it past the setOnClickListener")}
 
     }

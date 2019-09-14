@@ -11,35 +11,11 @@
         android:focusableInTouchMode="true"
         tools:context=".SignIn">
 
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ICBC 2019 ICBC 2019 ICBC 2019"
-            android:textColor="@color/trademarkRedFaded2"
-            android:textSize="24dp"
-            android:textStyle="bold"
-            android:singleLine="true"
-    />
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="CBC 2019 ICBC 20"
-            android:textColor="@color/trademarkRedFaded2"
-            android:textSize="43dp"
-            android:textStyle="bold"
-            android:singleLine="true"
-    />
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ICBC 2019"
-            android:textColor="@color/trademarkRedFaded2"
-            android:textSize="68dp"
-            android:textStyle="bold"
-            android:singleLine="true"
-    />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:src="@drawable/qcc_logo"
+        android:padding="60dp"/>
 
     <TextView
             android:layout_width="wrap_content"
@@ -56,11 +32,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ID"
+        
             android:layout_marginLeft="30dp"
             android:textColor="@color/trademarkRed"
             android:visibility="invisible"
     />
     <EditText
+        android:singleLine="true"
+        android:imeOptions="actionGo"
             android:id="@+id/idEdit"
             android:layout_width="325dp"
             android:layout_height="50dp"
@@ -92,7 +71,9 @@
             android:visibility="invisible"
     />
     <EditText
-            android:id="@+id/nameEdit"
+        android:imeOptions="actionGo"
+        android:singleLine="true"
+        android:id="@+id/nameEdit"
             android:layout_width="325dp"
             android:layout_height="50dp"
             android:textSize="20dp"
@@ -113,36 +94,7 @@
             android:visibility="invisible"
     />
 
-    <TextView
-            android:id="@+id/emailText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email"
-            android:layout_marginLeft="30dp"
-            android:textColor="@color/trademarkRed"
-            android:visibility="invisible"
-    />
-    <EditText
-            android:id="@+id/emailEdit"
-            android:layout_width="325dp"
-            android:layout_height="50dp"
-            android:textSize="20dp"
-            android:paddingLeft="15dp"
-            android:hint="myemail@email.com"
-            android:layout_gravity="center"
-            android:maxLength="20"
-            android:outlineProvider="none"
-            android:background="@drawable/round_edit_text"/>
-    <TextView
-            android:id="@+id/emailText2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Please enter your Email here"
-            android:layout_marginLeft="30dp"
-            android:textColor="@color/trademarkRed"
-            android:textSize="10dp"
-            android:visibility="invisible"
-    />
+
 
     <Button
         android:id="@+id/submitID"

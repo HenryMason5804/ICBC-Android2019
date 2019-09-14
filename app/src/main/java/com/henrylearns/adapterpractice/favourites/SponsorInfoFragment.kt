@@ -45,10 +45,8 @@ lateinit var adapter:SponsorInfoAdapter
         val view = inflater.inflate(R.layout.fragment_sponsor_info, container, false)
         var sponsorColRef: CollectionReference = FirebaseFirestore.getInstance().collection("Sponsors")
         val thisSpons = sponsorColRef.whereEqualTo("id", mybundle!!.getLong("ID")).get()
-        view.linkedInButton.setOnClickListener{
-            Toast.makeText(context,"SABA THIS THING DOESN'T DO ANYTHING",Toast.LENGTH_LONG)
-        }
-        var array: (ArrayList<Long>) = ArrayList<Long>()
+
+        //var array: (ArrayList<Long>) = ArrayList<Long>()
         thisSpons.addOnSuccessListener { documents ->
             for (document in documents) {
                 val documentObj = document.toObject(FullSponsorObject::class.java)
@@ -56,7 +54,6 @@ lateinit var adapter:SponsorInfoAdapter
                 view.companyName.text = document["name"].toString()
                 view.introduction.setText(document["introduction"].toString())
                 view.aboutParagraph.setText(document["description"].toString())
-                view.linkedInButton.setText("LinkedIn")
                 view.companyButton.setText("Company Website")
                 view.companyButton.setOnClickListener{
                     val url:String =document["companyWebsite"] as String
@@ -64,17 +61,19 @@ lateinit var adapter:SponsorInfoAdapter
                     i.data=Uri.parse(url)
                     startActivity(i)
                 }
-                array = documentObj.assocEvents
+                //array = documentObj.assocEvents
             }
-            initiateAdapter(view, array,clickListener)
+           // initiateAdapter(view, array,clickListener)
         }
         return view
     }
+}
+    /*
     override fun onDestroy() {
         super.onDestroy()
         adapter.unregister()
     }
-
+/*
     fun initiateAdapter(view: View, myList: MutableList<Long>,myclickListener:(Long,Int)->Unit) {
         val recView = view.findViewById<RecyclerView>(R.id.sponsorInfoRecyclerView)
         val manager = LinearLayoutManager(view.context)
@@ -84,5 +83,29 @@ lateinit var adapter:SponsorInfoAdapter
         adapter = SponsorInfoAdapter(view.context, myList, eventColRef,myclickListener)
         recView.adapter = adapter
     }
+    */
 
-}
+
+
+/*
+   <TextView android:layout_width="match_parent" android:layout_height="24dp"
+    android:text="Events"
+        android:paddingHorizontal="10dp"
+        />
+    <LinearLayout
+        android:paddingHorizontal="10dp"
+        android:layout_width="match_parent" android:layout_height="500dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/sponsorInfoRecyclerView"/>
+    </LinearLayout>
+
+       <Button android:layout_width="158dp" android:layout_height="48dp"
+        android:layout_margin="16dp" android:id="@+id/linkedInButton"
+            android:paddingHorizontal="5dp"
+            android:drawableLeft="@drawable/linked_in"
+            android:drawablePadding="2dp"
+            android:textColor="@color/trademarkRed"
+            android:background="@color/trademarkRedFaded2" />
+ */

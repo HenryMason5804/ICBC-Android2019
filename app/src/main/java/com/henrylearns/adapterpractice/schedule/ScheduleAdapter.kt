@@ -30,8 +30,9 @@ class MyDayRecyclerViewAdapter(
         val myColRef=FirebaseFirestore.getInstance().collection("Events")
         //replace with calendar instance Calendar
 
-        var day2 =Calendar.getInstance()
-        day2.set(2019,2,20)
+        var day2 =Date(2019,9,21)
+
+
         if (column==0){
              dailyEventCollectionReference=myColRef.orderBy("startDate").endBefore(day2)
         }
@@ -45,6 +46,9 @@ class MyDayRecyclerViewAdapter(
             if (snapshot!=null){
                 for (document in snapshot){
                     val tempEvent=document.toObject(FullEventObject::class.java)
+                    /*if (tempEvent.startDate.time>day2){
+                        Log.d("ghahhhhh","som")
+                    }*/
                     eventList.add(tempEvent)
                 }
                 notifyDataSetChanged()

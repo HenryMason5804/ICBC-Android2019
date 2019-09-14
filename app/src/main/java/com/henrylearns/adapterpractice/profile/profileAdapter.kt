@@ -15,7 +15,6 @@ import com.henrylearns.adapterpractice.dataobjects.FullExecObject
 import de.hdodenhof.circleimageview.CircleImageView
 
 class profileAdapter(val context: Context,val dbr:CollectionReference,val listener:((profileID:FullExecObject)->Unit)): RecyclerView.Adapter<profileAdapter.ViewHolder>() {
-    val imageURLs="https://46yuuj40q81w3ijifr45fvbe165m-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/horseshoe-bend-600x370.jpg"
     val profileList = ArrayList<FullExecObject>()
     init {
         dbr.addSnapshotListener { snapshot, error ->
@@ -49,7 +48,7 @@ class profileAdapter(val context: Context,val dbr:CollectionReference,val listen
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Glide.with(context).asBitmap().load(imageURLs).into(holder.image)
+        Glide.with(context).asBitmap().load(profileList[position].imageName).into(holder.image)
         holder.text.text="${profileList[position].firstName}"
     holder.itemView.setOnClickListener { listener(profileList[position]) }}
 
