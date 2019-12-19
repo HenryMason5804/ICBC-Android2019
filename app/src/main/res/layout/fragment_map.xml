@@ -5,10 +5,11 @@
     android:id="@+id/slidingpanel"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="bottom"
-    app:umanoPanelHeight="300dp"
+    app:umanoPanelHeight="150dp"
     >
 
 <FrameLayout
+    android:id="@+id/frame_layout_for_click"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.google.android.gms.maps.MapView
@@ -21,7 +22,8 @@
         android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/stauffer_lower_level"/>
+        android:src="@drawable/goodes_lower"
+        />
 </FrameLayout>
 
     <LinearLayout

@@ -2,6 +2,7 @@ package com.henrylearns.adapterpractice.map
 
 import android.content.Context
 import android.text.Layout
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ private val locArray=ArrayList<LocationObject>()
                     locArray.add(tempLoc)
                 }
             }
+
             notifyDataSetChanged()
         }
     }

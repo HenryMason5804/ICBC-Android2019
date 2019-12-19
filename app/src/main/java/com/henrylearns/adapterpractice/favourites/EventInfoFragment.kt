@@ -86,7 +86,7 @@ class EventInfoFragment : Fragment(){
                 thisEvent = document.toObject(FullEventObject::class.java)
                 Glide.with(view).asBitmap().load(thisEvent.image).into(view.imageView)
                 view.eventName.setText(thisEvent.title)
-                view.introduction.setText(thisEvent.description)
+                //view.introduction.setText(thisEvent.description)
                 view.aboutParagraph.setText(thisEvent.about)
                 view.location.setText(thisEvent.location)
                 view.time.text="${thisEvent.startDate}"
@@ -113,7 +113,7 @@ class EventInfoFragment : Fragment(){
             val pendingIntent = PendingIntent.getBroadcast(
                     context, ALARM1_ID, myIntent, PendingIntent.FLAG_UPDATE_CURRENT)
             val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+5000, pendingIntent)
+            alarmManager.set(AlarmManager.RTC_WAKEUP, startTime-(60L*60L*1000L), pendingIntent)
 
         }
 

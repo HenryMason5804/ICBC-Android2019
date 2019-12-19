@@ -4,8 +4,17 @@
         android:layout_width="match_parent" android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@android:color/white">
+    <LinearLayout
+        android:gravity="center"
+        android:id="@+id/topBarLinLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
     <TextView android:id="@+id/greeting_text_schedule"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="Hey Nakul, here's your day"
               android:textColor="@android:color/black"
@@ -13,28 +22,37 @@
               android:textStyle="bold"
               android:textSize="17sp"
               android:layout_margin="16dp"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
+
     />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/execSchedule"
+        android:text="exec schedule"/>
+</LinearLayout>
+
     <com.henrylearns.adapterpractice.schedule.NoSwipePager
-            app:layout_constraintTop_toBottomOf="@id/greeting_text_schedule"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/nestedViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
+        android:id="@+id/nestedViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBarLinLay"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.tabs.TabLayout
-                android:id="@+id/pager_title_strip"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                app:tabTextColor="@color/trademarkRed"
-                android:background="@drawable/underline_drawable"
-                android:textColor="@android:color/black"
-                app:tabIndicatorColor="@color/trademarkRed"
-                android:backgroundTint="@android:color/white"
-                android:paddingBottom="0dp"/>
+            android:id="@+id/pager_title_strip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:background="@drawable/underline_drawable"
+            android:backgroundTint="@android:color/white"
+            android:paddingBottom="0dp"
+            android:textColor="@android:color/black"
+            app:tabIndicatorColor="@color/trademarkRed"
+            app:tabTextColor="@color/trademarkRed"
+
+            />
 
     </com.henrylearns.adapterpractice.schedule.NoSwipePager>
 

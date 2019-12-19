@@ -8,16 +8,17 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <permission
         android:name="com.henrylearns.adapterpractice.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
 
     <application
-        android:icon="@drawable/main_loading_icon"
-        android:label="ICBC 2019"
-        android:roundIcon="@drawable/main_loading_icon"
+
+
+        android:icon="@drawable/icbc_logo"
+        android:label="I.C.B.C."
+        android:roundIcon="@drawable/icbc_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <receiver android:name=".Alarm_receiver" android:enabled="true">
@@ -45,6 +46,20 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-    </application>
+        <meta-data
+        android:name="com.google.firebase.messaging.default_notification_icon"
+        android:resource="@drawable/ic_priority_high_black_24dp" />
+        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+        <service
+            android:name=".services.MyFireBaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service> </application>
 
 </manifest>

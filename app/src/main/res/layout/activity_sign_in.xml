@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/SignInLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_height="800dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:orientation="vertical"
         android:clickable="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        tools:context=".SignIn">
+        tools:context=".SignIn"
+    >
 
     <ImageView
+        android:id="@+id/featureBanner"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:src="@drawable/qcc_logo"
@@ -78,7 +82,7 @@
             android:layout_height="50dp"
             android:textSize="20dp"
             android:paddingLeft="15dp"
-            android:hint="Name"
+            android:hint="Name (optional)"
             android:layout_gravity="center"
             android:maxLength="20"
             android:outlineProvider="none"
@@ -106,5 +110,15 @@
         android:layout_marginLeft="233dp"
         android:textSize="15dp"
     />
+    <Button
+        android:id="@+id/privacyButton"
+        android:layout_gravity="bottom"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:text="Privacy Policy"
+        android:background="@drawable/round_button"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="115dp"
+        android:textSize="15dp" />
 
 </LinearLayout>

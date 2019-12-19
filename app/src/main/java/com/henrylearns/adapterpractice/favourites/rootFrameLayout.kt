@@ -94,8 +94,9 @@ class rootFrameLayout : Fragment() {
                 var trans = childFragmentManager.beginTransaction()
                 trans.replace(R.id.root_frame, myFrag)
             }
-            super.onPause()
+
         }
+        super.onPause()
     }
 }
 

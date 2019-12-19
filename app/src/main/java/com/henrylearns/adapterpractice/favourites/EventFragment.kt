@@ -1,7 +1,9 @@
 package com.henrylearns.adapterpractice.favourites
 
 
+import android.content.Context
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.henrylearns.adapterpractice.R
+import com.henrylearns.adapterpractice.dataobjects.prefUtil
 import kotlinx.android.synthetic.main.fragment_event_info.view.*
 import java.sql.Time
 
@@ -39,7 +42,8 @@ class EventFragment : Fragment() {
             recyclerView.setHasFixedSize(true)
             recyclerView.layoutManager = manager
             var eventRef: CollectionReference = FirebaseFirestore.getInstance().collection("Events")
-            adapter = EventAdapterforRecylerView(view.context,eventRef, parentFrag.myClickListener)
+            var userID=getUserID(context)
+            adapter = EventAdapterforRecylerView(view.context,eventRef, parentFrag.myClickListener,userID)
             recyclerView.adapter = adapter
         }
     }
@@ -49,4 +53,8 @@ class EventFragment : Fragment() {
         adapter.unregister()
     }
 
+    fun getUserID(context: Context?): String? {
+        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        return preferences.getString(prefUtil.USER_ID_TAG, null)
+    }
 }

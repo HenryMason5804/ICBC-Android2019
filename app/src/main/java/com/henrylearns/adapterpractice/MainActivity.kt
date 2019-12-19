@@ -1,6 +1,10 @@
 package com.henrylearns.adapterpractice
 
 import android.app.Activity
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
@@ -11,7 +15,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.google.android.gms.dynamic.SupportFragmentWrapper
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.iid.FirebaseInstanceId
 import com.henrylearns.adapterpractice.dataobjects.FullEventObject
 import com.henrylearns.adapterpractice.schedule.ScheduleFragment
 import com.henrylearns.adapterpractice.schedule.ScheduleTabFragment
@@ -19,7 +25,9 @@ import com.henrylearns.adapterpractice.favourites.SponsorInfoFragment
 import com.henrylearns.adapterpractice.favourites.rootFrameLayout
 import com.henrylearns.adapterpractice.map.MapFragment
 import com.henrylearns.adapterpractice.profile.ProfileFragment
+import com.henrylearns.adapterpractice.services.MyFireBaseMessagingService
 import java.util.*
+
 
 
 class MainActivity : AppCompatActivity(), ScheduleFragment.OnListFragmentInteractionListener {
@@ -31,6 +39,7 @@ class MainActivity : AppCompatActivity(), ScheduleFragment.OnListFragmentInterac
         myFrag.arguments=bundle
         selectedItemStack.push(1)
         openFragment(myFrag)
+
     }
 
 
@@ -42,9 +51,13 @@ class MainActivity : AppCompatActivity(), ScheduleFragment.OnListFragmentInterac
     lateinit var selectedItemStack: Stack<Int>
 
 
+
+
+
     private lateinit var textMessage: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("Henry", "entered mainactivyt")
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.bottom_navigation_view)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
@@ -64,7 +77,7 @@ class MainActivity : AppCompatActivity(), ScheduleFragment.OnListFragmentInterac
             secondFragment.arguments=newbundle
             selectedItemStack=Stack()
             selectedItemStack.push(1)
-            openFragment(secondFragment)
+            //openFragment(secondFragment)
            findViewById<BottomNavigationView>(R.id.nav_view).selectedItemId=R.id.navigation_favourites
         }
         else {

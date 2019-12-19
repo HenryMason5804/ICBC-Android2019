@@ -27,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.henrylearns.adapterpractice.R
 import com.henrylearns.adapterpractice.dataobjects.LocationObject
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import kotlinx.android.synthetic.main.fragment_map.view.*
 
 
 class MapFragment (): Fragment(),OnMapReadyCallback {
@@ -41,9 +42,13 @@ class MapFragment (): Fragment(),OnMapReadyCallback {
     var something =HashMap<String,Marker?>()
     var mMap:GoogleMap?=null
     override fun onMapReady(map: GoogleMap?) {
-        something.put("Stauffer", map?.addMarker(MarkerOptions().position(LatLng(44.228488, -76.496531)).title("Stauffer Library").snippet("Here there be books")))
-        something.put("Goode's Hall",map?.addMarker(MarkerOptions().position(LatLng(44.228518, -76.497547)).title("Goodes Hall").snippet("This is where you go if you want to flex your neighbourhood")))
+        something.put("Goodes Hall",map?.addMarker(MarkerOptions().position(LatLng(44.228532, -76.497504)).title("Goodes Hall").snippet("Goode's Hall is the center of this event!")))
+        something.put("The Mansion",map?.addMarker(MarkerOptions().position(LatLng(44.235030, -76.496399)).title("The Mansion").snippet("Come here to unwind for the QCC social")))
+        something.put("Renaissance",map?.addMarker(MarkerOptions().position(LatLng(44.234236, -76.491228)).title("Renaissance Event Hall").snippet("Location of Final Banquet")))
         if(mloc!=""){
+            if (mloc!="Stauffer" && mloc!="Renaissance" && mloc != "Renaissance"){
+                mloc="Goodes Hall"
+            }
             something[mloc]!!.showInfoWindow()
             map?.moveCamera(CameraUpdateFactory.newLatLngZoom(something[mloc]!!.position,16f))
             slidePanel?.panelState=SlidingUpPanelLayout.PanelState.COLLAPSED
@@ -95,12 +100,14 @@ class MapFragment (): Fragment(),OnMapReadyCallback {
             something[loc.locationName]?.showInfoWindow()
             mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(something[loc.locationName]?.position, 16f))
             slidePanel?.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED)
-            Toast.makeText(context, "yeet", Toast.LENGTH_SHORT)
         }
+        myView.frame_layout_for_click.setOnClickListener{
+            slidePanel?.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED)
+        }
+        var eventRef: CollectionReference = FirebaseFirestore.getInstance().collection("Locations")
 
-        val dbr=FirebaseFirestore.getInstance()
-        val colRef=dbr.collection("Locations")
-        setupRecyclerAdapter(myView,colRef,clickListen)
+        var colRef=FirebaseFirestore.getInstance().collection("Locations")
+        setupRecyclerAdapter(myView,eventRef,clickListen)
 
     return myView
     }
@@ -139,9 +146,9 @@ fun setupRadioListeners(myView:View) {
     val radGroup2= myView.findViewById<RadioGroup>(R.id.indoorRadioGroup)
     radGroup2.setOnCheckedChangeListener{_,buttonID ->
             when (buttonID) {
-                R.id.indoorradioButtonTab1 ->{myView.findViewById<ImageView>(R.id.indoorMapImage).setImageResource(R.drawable.stauffer_lower_level)}
-                R.id.indoorradioButtonTab2 ->{myView.findViewById<ImageView>(R.id.indoorMapImage).setImageResource(R.drawable.stauffer_1st_level)}
-                R.id.indoorradioButtonTab3 ->{myView.findViewById<ImageView>(R.id.indoorMapImage).setImageResource(R.drawable.stauffer_2nd_level)}
+                R.id.indoorradioButtonTab1 ->{myView.findViewById<ImageView>(R.id.indoorMapImage).setImageResource(R.drawable.goodes_lower)}
+                R.id.indoorradioButtonTab2 ->{myView.findViewById<ImageView>(R.id.indoorMapImage).setImageResource(R.drawable.goodes_1)}
+                R.id.indoorradioButtonTab3 ->{myView.findViewById<ImageView>(R.id.indoorMapImage).setImageResource(R.drawable.goodes_2)}
             }
     }
 }

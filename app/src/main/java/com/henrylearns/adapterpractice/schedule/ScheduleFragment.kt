@@ -2,6 +2,7 @@ package com.henrylearns.adapterpractice.schedule
 
 import android.content.Context
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import com.henrylearns.adapterpractice.DayModel
 import com.henrylearns.adapterpractice.MainActivity
 import com.henrylearns.adapterpractice.R
 import com.henrylearns.adapterpractice.dataobjects.FullEventObject
+import com.henrylearns.adapterpractice.dataobjects.prefUtil
 
 class ScheduleFragment : Fragment() {
 
@@ -35,7 +37,7 @@ class ScheduleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_schedule, container, false)
-
+        val accessCodes=getUserID(context)
         // Set the adapter
         if (view is RecyclerView) {
             with(view) {
@@ -44,7 +46,7 @@ class ScheduleFragment : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
                 adapter = MyDayRecyclerViewAdapter(
-                        columnCount,listener
+                        columnCount,accessCodes,listener
                 )
             }
         }
@@ -92,5 +94,9 @@ class ScheduleFragment : Fragment() {
                     putInt(ARG_COLUMN_COUNT, columnCount)
                 }
             }
+    }
+    fun getUserID(context: Context?): String? {
+        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        return preferences.getString(prefUtil.USER_ID_TAG, null)
     }
 }

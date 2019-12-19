@@ -33,7 +33,7 @@ class Alarm_receiver: BroadcastReceiver() {
         builder.setContentIntent(nPI)
         with(NotificationManagerCompat.from(context)) {
             // notificationId is a unique int for each notification that you must define
-            notify(6969, builder.build())
+            notify(id, builder.build())
         }
 
         Log.d("CheckOnRecieve","WE entered onREceive time is $time")

@@ -22,11 +22,9 @@ class SponsorFragment : Fragment() {
     lateinit var adapter:SponsorAdapterforRecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Log.d("Henry","enteredSponsorFragment")
-        Log.d("DebugNoAdapter", "onCreateView called")
+
         val view: View = inflater.inflate(R.layout.activity_main, container, false)
         initRecyclerView(view)
-        Log.d("DebugNoAdapter", "initRecyclerView() called")
         return view
     }
 
