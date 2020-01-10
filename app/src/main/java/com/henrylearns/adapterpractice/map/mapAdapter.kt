@@ -13,11 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.CollectionReference
 import com.henrylearns.adapterpractice.R
-import com.henrylearns.adapterpractice.dataobjects.LocationObject
+import com.henrylearns.adapterpractice.dataobjects.locationObject
 import org.w3c.dom.Text
 
-class mapAdapter(val context:Context, val cref: CollectionReference, val listener:(LocationObject)->Unit): RecyclerView.Adapter<mapAdapter.ViewHolder>() {
-private val locArray=ArrayList<LocationObject>()
+class mapAdapter(val context:Context, val cref: CollectionReference, val listener:(locationObject)->Unit): RecyclerView.Adapter<mapAdapter.ViewHolder>() {
+private val locArray=ArrayList<locationObject>()
     init{
         cref.addSnapshotListener{snapshot,error->
             locArray.clear()
@@ -27,7 +27,7 @@ private val locArray=ArrayList<LocationObject>()
             }
             else if (snapshot!=null){
                 for (document in snapshot){
-                    val tempLoc=document.toObject(LocationObject::class.java)
+                    val tempLoc=document.toObject(locationObject::class.java)
                     locArray.add(tempLoc)
                 }
             }
@@ -38,7 +38,7 @@ private val locArray=ArrayList<LocationObject>()
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val locationImageView = view.findViewById<ImageView>(R.id.locationImage)
         val locationText: TextView = view.findViewById<TextView>(R.id.location)
-        val locationDescription: TextView = view.findViewById(R.id.description)
+        //val locationDescription: TextView = view.findViewById(R.id.description)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): mapAdapter.ViewHolder {
@@ -50,7 +50,7 @@ private val locArray=ArrayList<LocationObject>()
         return locArray.size}
 
     override fun onBindViewHolder(holder: mapAdapter.ViewHolder, position: Int) {
-        holder.locationDescription.text=locArray.get(position).locationDescrip
+        //holder.locationDescription.text=locArray.get(position).locationDescrip
     holder.locationText.text=locArray.get(position).locationName
     Glide.with(context).load(locArray.get(position).imageName).into(holder.locationImageView)
     holder.itemView.setOnClickListener { listener(locArray[position]) }}

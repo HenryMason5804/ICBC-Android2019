@@ -103,8 +103,9 @@ class SignIn : AppCompatActivity() {
                 if (error!=null){
                     Log.d("SnapshotFailrue","snapfailed $error")
                 }
+                var correctID=false
+
                 if (snapshot!=null){
-                    var correctID=false
                     for (document in snapshot) {
                         val something = document["code"]
                         if (something != null) {
@@ -115,16 +116,26 @@ class SignIn : AppCompatActivity() {
                                 setUserName(userName.toLowerCase(), applicationContext)
                                 setUserID(idEdit.text.toString().toLowerCase(), applicationContext)
                                 i.putExtra("userName", userName)
-                                startActivity(i)
                                 correctID= true
+                                startActivity(i)
+
                             }
                         }
                     }
                     if (!correctID) {
                         Toast.makeText(applicationContext, "incorrect user ID.", Toast.LENGTH_LONG).show()
                         idEdit.setText("")
+
+
                     }
                 }
+                if (correctID){
+                i.putExtra("userID", idEdit.text.toString())
+                val userName: String = nameEdit.text.toString()
+                setUserName(userName.toLowerCase(), applicationContext)
+                setUserID(idEdit.text.toString().toLowerCase(), applicationContext)
+                i.putExtra("userName", userName)
+                startActivity(i)}
             }/*
 
 */

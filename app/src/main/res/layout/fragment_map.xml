@@ -30,7 +30,7 @@
         android:minHeight="100dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="600dp"
         android:id="@+id/slidingPanelLinearLayout"
         android:gravity="center_horizontal">
         <RadioGroup

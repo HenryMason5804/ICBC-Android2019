@@ -42,7 +42,7 @@ class ScheduleFragment : Fragment() {
         if (view is RecyclerView) {
             with(view) {
                 layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
+                    columnCount <= 2 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
                 adapter = MyDayRecyclerViewAdapter(

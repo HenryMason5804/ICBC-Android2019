@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="300dp"
+    android:layout_width="match_parent">
+<LinearLayout
+    android:layout_gravity="left"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="280dp"
+    android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:elevation="15dp"
     android:layout_margin="5dp"
@@ -17,11 +21,10 @@
         android:src="@drawable/ic_icon_add_filled"
         />
         <LinearLayout
-            android:layout_gravity="center"
+            android:gravity="top"
             android:layout_marginStart="5dp"
-            android:gravity="center"
             android:layout_width="200dp"
-            android:layout_height="match_parent"
+            android:layout_height="290dp"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/popupExecView"
@@ -42,7 +45,7 @@
                 android:text="someEmail.com"
                 android:id="@+id/execEmail"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="match_parent"
                 android:linksClickable="true"
                 android:autoLink="web|email" />
         </LinearLayout>
@@ -50,6 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <ImageButton
+        android:background="@color/white"
         android:src="@drawable/linked_in"
         android:scaleType="fitCenter"
         android:layout_gravity="center"
@@ -60,3 +64,4 @@
         />
     </LinearLayout>
 </LinearLayout>
+</ScrollView>

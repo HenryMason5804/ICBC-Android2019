@@ -93,7 +93,6 @@ class MainActivity : AppCompatActivity(), ScheduleFragment.OnListFragmentInterac
             val alertDialog = AlertDialog.Builder(this)
             alertDialog.setTitle("Would You Like to Exit the App?'?")
             alertDialog.setPositiveButton("Yes Please", { dialog, which ->
-                Toast.makeText(this, "GOODBYE FOOL", Toast.LENGTH_SHORT).show()
                 Thread.sleep(200)
                 finishAffinity()
             })

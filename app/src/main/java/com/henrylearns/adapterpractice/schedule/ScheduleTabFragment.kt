@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_tab_schedule.*
 import kotlinx.android.synthetic.main.fragment_tab_schedule.view.*
 
 class ScheduleTabFragment : Fragment() {
+    lateinit var i:Intent
     companion object {
         fun newInstance(num: Int): ScheduleTabFragment {
             val f = ScheduleTabFragment()
@@ -36,19 +37,33 @@ class ScheduleTabFragment : Fragment() {
 
 
     }
+    fun getIntnt():Intent{
+        return i
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): android.view.View? {
         val view = inflater.inflate(R.layout.fragment_tab_schedule, container, false)
+        //val i:Intent
         var userID=getUserID(context!!)
-        try {
-            var someNumber=(userID!![1] + ""+userID!![2]).toInt()
-            view.execSchedule.setVisibility(View.GONE)}
-        catch (e:Exception){
-            Log.d("exec","this user is an executive dude(tte)")
+        if (userID == "volunteer"){
+             i= Intent(Intent.ACTION_VIEW,Uri.parse("https://docs.google.com/spreadsheets/u/1/d/1nQRQonQ0UAhISbqnAZ3BmkyHcDO1vFvn"))
+            view.execSchedule.setText("Volunteer Schedule")
         }
+        else if ( userID == "judge"){
+             i= Intent(Intent.ACTION_VIEW,Uri.parse("https://docs.google.com/spreadsheets/d/1gJWml-tpbrJAGAFDw1HC30KA5RBAwGs5"))
+            view.execSchedule.setText("Judge Schedule")
+        }
+        else if( userID == "exec"){
+             i= Intent(Intent.ACTION_VIEW,Uri.parse("https://docs.google.com/spreadsheets/u/1/d/1rDU8Z5UigZdMYAUQyFWSKBEcgeyfjt-B"))
+            view.execSchedule.setText("Exec Schedule")
+        }
+        else{
+            view.execSchedule.setVisibility(View.GONE)
+    }
+
         view.execSchedule.setOnClickListener {
-            val i= Intent(Intent.ACTION_VIEW,Uri.parse("https://docs.google.com/spreadsheets/d/1TCyiO3Q6kyOdX-RbzKIi-LuDnjvz3fmk3aN15LQXVPE/edit?fbclid=IwAR2DmLCXlO1s1E7S-HtAwaGtIgD4MdvgeBgF1zbmQP_X2HwdtNWINhFIgY0#gid=490611509")
-            )
-        startActivity(i)}
+            i
+        startActivity(i)
+        }
         val userName=getUserName(context!!)
         val first = userName?.split(" ")
         if (first!=null) {

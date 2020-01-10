@@ -11,18 +11,19 @@ class ScheduleTabAdapter(fm: FragmentManager, private val context: Context) : Fr
         return when(position){
             //TODO Add bundle to each tab so that adapter can fill schedules differently
             0 -> ScheduleFragment.newInstance(position)
-            else -> ScheduleFragment.newInstance(position)
+            else -> ScheduleFragment.newInstance(position)//Not sure why Bruce made it this way but 0 is the number of columns (also works for 1 but doesn't workd for >=2
         }
     }
 
     override fun getCount(): Int {
-        return 2
+        return 3
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when(position) {
-            0 -> "Day 1"
-            else -> "Day 2"
+            0 -> "Thursday"
+            1 -> "Friday"
+            else -> "Saturday"
         }
     }
 }

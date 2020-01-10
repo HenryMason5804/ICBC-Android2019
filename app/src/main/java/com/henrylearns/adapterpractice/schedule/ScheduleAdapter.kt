@@ -32,22 +32,26 @@ class MyDayRecyclerViewAdapter(
         val myColRef=FirebaseFirestore.getInstance().collection("Events")
         //replace with calendar instance Calendar
         var day1 =Calendar.getInstance()
-        day1.set(2019,8,20)
+        day1.set(2020,0,17,0,0)
         var day2 =Calendar.getInstance()
-        day2.set(2019,8,21,0,0,0)
+        day2.set(2020,0,18,0,0,0)
 
         if (column==0){
-             dailyEventCollectionReference=myColRef.orderBy("startDate").endBefore(day2.time)
+             dailyEventCollectionReference=myColRef.orderBy("startDate").endBefore(day1.time)
            // dailyEventCollectionReference=myColRef.whereGreaterThan("startDate",day1.timeInMillis).whereLessThan("startDate",day2.timeInMillis)
+        }
+        else if (column==1){
+            dailyEventCollectionReference=myColRef.orderBy("startDate").startAfter(day1.time).endBefore(day2.time)
         }
         else{
             dailyEventCollectionReference=myColRef.orderBy("startDate").startAfter(day2.time)
+
         }
 
         var splitIDColor:Char=' '
         var splitIDNumber:String=" "
         var number:Int=-1
-        if (accessCodes!=null) {
+       /* if (accessCodes!=null) {
             splitIDColor = accessCodes[0]
             try {
                 number = (accessCodes[1] + "" + accessCodes[2]).toInt()
@@ -63,7 +67,7 @@ class MyDayRecyclerViewAdapter(
                 number = mod(number-1,4)+1
                 splitIDNumber=("M"+number.toString())
             }
-        }
+        }*/
         dailyEventCollectionReference.addSnapshotListener{snapshot,error->
             if (error !=null){
                 Log.d("SnapshotFailure","$error")
@@ -71,7 +75,7 @@ class MyDayRecyclerViewAdapter(
             if (snapshot!=null){
                 for (document in snapshot){
                     val eventObject = document.toObject(FullEventObject::class.java)
-                    if (eventObject.eventCode==null){
+                   /* if (eventObject.eventCode==null){
                         when (splitIDColor){
                             'm'->if( eventObject.eventType.toString().toLowerCase()!="gold"){
                                 eventList.add(eventObject)
@@ -87,9 +91,10 @@ class MyDayRecyclerViewAdapter(
                     }
                     else if (splitIDColor=='&'){
                         eventList.add(eventObject)
-                    }
-
+                    }*/
+                    eventList.add(eventObject)
             }
+
                 notifyDataSetChanged()
             }
         }

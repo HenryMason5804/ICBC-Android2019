@@ -25,7 +25,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.henrylearns.adapterpractice.R
-import com.henrylearns.adapterpractice.dataobjects.LocationObject
+import com.henrylearns.adapterpractice.dataobjects.FullEventObject
+import com.henrylearns.adapterpractice.dataobjects.locationObject
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import kotlinx.android.synthetic.main.fragment_map.view.*
 
@@ -42,21 +43,43 @@ class MapFragment (): Fragment(),OnMapReadyCallback {
     var something =HashMap<String,Marker?>()
     var mMap:GoogleMap?=null
     override fun onMapReady(map: GoogleMap?) {
-        something.put("Goodes Hall",map?.addMarker(MarkerOptions().position(LatLng(44.228532, -76.497504)).title("Goodes Hall").snippet("Goode's Hall is the center of this event!")))
-        something.put("The Mansion",map?.addMarker(MarkerOptions().position(LatLng(44.235030, -76.496399)).title("The Mansion").snippet("Come here to unwind for the QCC social")))
-        something.put("Renaissance",map?.addMarker(MarkerOptions().position(LatLng(44.234236, -76.491228)).title("Renaissance Event Hall").snippet("Location of Final Banquet")))
-        if(mloc!=""){
-            if (mloc!="Stauffer" && mloc!="Renaissance" && mloc != "Renaissance"){
-                mloc="Goodes Hall"
+        FirebaseFirestore.getInstance()
+        val myColRef=FirebaseFirestore.getInstance().collection("Locations")
+        myColRef.addSnapshotListener{snapshot,error->
+            if (error !=null){
+                Log.d("SnapshotFailure","$error")
             }
-            something[mloc]!!.showInfoWindow()
-            map?.moveCamera(CameraUpdateFactory.newLatLngZoom(something[mloc]!!.position,16f))
-            slidePanel?.panelState=SlidingUpPanelLayout.PanelState.COLLAPSED
-            mMap=map
-        }else if (mloc=="") {
-            map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(44.2258, -76.4948), 15f))
-            mMap=map
-        }
+            if (snapshot!=null) {
+                for (document in snapshot) {
+                    val locObject = document.toObject(locationObject::class.java)
+                    something.put(
+                        locObject.locationName,
+                        map?.addMarker(
+                            MarkerOptions().position(
+                                LatLng(
+                                    locObject.latitude.toDouble(),
+                                    locObject.longitude.toDouble()
+                                )
+                            ).title(locObject.locationName).snippet(locObject.locationDescrip)
+                        )
+                    )
+
+                }
+//        something.put("The Mansion",map?.addMarker(MarkerOptions().position(LatLng(44.235030, -76.496399)).title("The Mansion").snippet("Come here to unwind for the QCC social")))
+//        something.put("Renaissance",map?.addMarker(MarkerOptions().position(LatLng(44.234236, -76.491228)).title("Renaissance Event Hall").snippet("Location of Final Banquet")))
+                if(mloc!=""){
+                    if (mloc!="Stauffer" && mloc!="Renaissance" && mloc != "Renaissance"){
+                        mloc="Goodes Hall"
+                    }
+                    something[mloc]!!.showInfoWindow()
+                    map?.moveCamera(CameraUpdateFactory.newLatLngZoom(something[mloc]!!.position,16f))
+                    slidePanel?.panelState=SlidingUpPanelLayout.PanelState.COLLAPSED
+                    mMap=map
+                }else if (mloc=="") {
+                    map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(44.2258, -76.4948), 15f))
+                    mMap=map
+                }}}
+
 
 
     }
@@ -66,6 +89,7 @@ class MapFragment (): Fragment(),OnMapReadyCallback {
     private lateinit var  mloc:String //Stauffer
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         val myView = inflater.inflate(R.layout.fragment_map, container, false)
         var mapViewBundle: Bundle? = null
         if (savedInstanceState != null) {
@@ -82,7 +106,7 @@ class MapFragment (): Fragment(),OnMapReadyCallback {
         }else
             mloc=""
         slidePanel=myView?.findViewById(R.id.slidingpanel)
-        val clickListen:(loc:LocationObject)->Unit= { loc ->
+        val clickListen:(loc:locationObject)->Unit= { loc ->
             when (loc.floor) {
                 1L -> {
                     radiobuttonIn = view?.findViewById(R.id.indoorradioButtonTab1)
@@ -98,7 +122,7 @@ class MapFragment (): Fragment(),OnMapReadyCallback {
                 }
             }
             something[loc.locationName]?.showInfoWindow()
-            mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(something[loc.locationName]?.position, 16f))
+            mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(something[loc.locationName]?.position, 15f))
             slidePanel?.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED)
         }
         myView.frame_layout_for_click.setOnClickListener{
@@ -113,7 +137,7 @@ class MapFragment (): Fragment(),OnMapReadyCallback {
     }
 
 
-    private fun setupRecyclerAdapter(myView:View, colRef:CollectionReference,clickListen:(LocationObject)->Unit){
+    private fun setupRecyclerAdapter(myView:View, colRef:CollectionReference,clickListen:(locationObject)->Unit){
        val recycler_view= myView.findViewById<RecyclerView>(R.id.locationRecycler)
        val manager= LinearLayoutManager(myView.context)
         recycler_view.setHasFixedSize(true)

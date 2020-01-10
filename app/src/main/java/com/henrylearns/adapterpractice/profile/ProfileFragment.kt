@@ -60,7 +60,7 @@ private lateinit var mPopupWindow:PopupWindow
             if(Build.VERSION.SDK_INT>=21){
                 mPopupWindow.setElevation(5.0f)}
         popView.popupExecView.text="${it.firstName}  ${it.lastName}"
-            popView.execEmail.text=it.email
+            popView.execEmail.text=it.description
             popView.execPosition.text=it.position
             linkedInURL=it.linkedInURL
             popView.linkedInButton.setOnClickListener(){
