@@ -13,14 +13,56 @@
         android:focusableInTouchMode="true"
         tools:context=".SignIn"
     >
-
-    <ImageView
-        android:id="@+id/featureBanner"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:src="@drawable/qcc_logo"
-        android:padding="60dp"/>
+        android:layout_height="200dp">
+<TextView
+    android:layout_marginTop="15dp"
+    android:fontFamily="sans-serif-smallcaps"
+    android:alpha="0.5"
+    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+    android:layout_width="match_parent"
+    android:layout_height="31dp"
+    android:textSize="26sp"
+    android:textColor="@color/trademarkRedFaded"
+    android:layout_gravity="top"
+    android:gravity="top"
+    android:text="CBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020"/>
 
+    <TextView
+        android:fontFamily="sans-serif-smallcaps"
+        android:alpha="0.5"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:textSize="47sp"
+        android:textColor="@color/trademarkRedFaded"
+        android:layout_gravity="top"
+        android:gravity="top"
+        android:text="BC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020"/>
+
+
+    <!--    <ImageView-->
+<!--        android:id="@+id/featureBanner"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="250dp"-->
+<!--        android:src="@drawable/qcc_logo"-->
+<!--        android:padding="60dp"/>-->
+
+    <TextView
+        android:layout_width="match_parent"
+
+        android:layout_height="94dp"
+        android:layout_gravity="top"
+        android:alpha="0.5"
+        android:fontFamily="sans-serif-smallcaps"
+        android:gravity="top"
+        android:text="ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020ICBC2020"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+        android:textColor="@color/trademarkRedFaded"
+        android:textSize="79sp" />
+    </LinearLayout>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

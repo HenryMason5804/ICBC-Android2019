@@ -68,7 +68,7 @@ class SponsorInfoAdapter(val context: Context,val assocEventID:MutableList<Long>
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.eventName.text=objectArrayList[position].title
-        holder.eventDescrip.text=objectArrayList[position].about
+        holder.eventDescrip.text=objectArrayList[position].location
         Glide.with(context).asBitmap().load(objectArrayList[position].image).into(holder.imageView)
         holder.itemView.setOnClickListener{listener(objectArrayList[position].id.toLong(),3)}
 

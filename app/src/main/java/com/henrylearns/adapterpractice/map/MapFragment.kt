@@ -1,7 +1,6 @@
 package com.henrylearns.adapterpractice.map
 
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 
@@ -25,10 +24,10 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.henrylearns.adapterpractice.R
-import com.henrylearns.adapterpractice.dataobjects.FullEventObject
 import com.henrylearns.adapterpractice.dataobjects.locationObject
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import kotlinx.android.synthetic.main.fragment_map.view.*
+import java.lang.Exception
 
 
 class MapFragment (): Fragment(),OnMapReadyCallback {
@@ -68,20 +67,32 @@ class MapFragment (): Fragment(),OnMapReadyCallback {
 //        something.put("The Mansion",map?.addMarker(MarkerOptions().position(LatLng(44.235030, -76.496399)).title("The Mansion").snippet("Come here to unwind for the QCC social")))
 //        something.put("Renaissance",map?.addMarker(MarkerOptions().position(LatLng(44.234236, -76.491228)).title("Renaissance Event Hall").snippet("Location of Final Banquet")))
                 if(mloc!=""){
-                    if (mloc!="Stauffer" && mloc!="Renaissance" && mloc != "Renaissance"){
-                        mloc="Goodes Hall"
+                    if (something.containsKey(mloc)){
+                    try {
+                        something[mloc]!!.showInfoWindow()
+                        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(something[mloc]!!.position,16f))
+                        slidePanel?.panelState=SlidingUpPanelLayout.PanelState.COLLAPSED
+                        mMap=map
                     }
-                    something[mloc]!!.showInfoWindow()
-                    map?.moveCamera(CameraUpdateFactory.newLatLngZoom(something[mloc]!!.position,16f))
-                    slidePanel?.panelState=SlidingUpPanelLayout.PanelState.COLLAPSED
-                    mMap=map
+                        catch(e:Exception) {
+                            Toast.makeText(context,"error with accessing map",Toast.LENGTH_LONG).show()
+                        }
+                    }
+                    else{
+                        mloc="Goodes Hall"
+                        something[mloc]!!.showInfoWindow()
+                        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(something[mloc]!!.position,16f))
+                        slidePanel?.panelState=SlidingUpPanelLayout.PanelState.COLLAPSED
+                        mMap=map
+                        Toast.makeText(context,"Location not found, showing default location",Toast.LENGTH_LONG).show()}
+
+
                 }else if (mloc=="") {
                     map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(44.2258, -76.4948), 15f))
                     mMap=map
-                }}}
-
-
-
+                }
+            }
+        }
     }
 
     private val MAPVIEW_BUNDLE_KEY = "MapViewBundleKey"
@@ -170,9 +181,9 @@ fun setupRadioListeners(myView:View) {
     val radGroup2= myView.findViewById<RadioGroup>(R.id.indoorRadioGroup)
     radGroup2.setOnCheckedChangeListener{_,buttonID ->
             when (buttonID) {
-                R.id.indoorradioButtonTab1 ->{myView.findViewById<ImageView>(R.id.indoorMapImage).setImageResource(R.drawable.goodes_lower)}
-                R.id.indoorradioButtonTab2 ->{myView.findViewById<ImageView>(R.id.indoorMapImage).setImageResource(R.drawable.goodes_1)}
-                R.id.indoorradioButtonTab3 ->{myView.findViewById<ImageView>(R.id.indoorMapImage).setImageResource(R.drawable.goodes_2)}
+                R.id.indoorradioButtonTab1 ->{myView.findViewById<ImageView>(R.id.indoorMapImage).setImageResource(R.drawable.lower_level)}
+                R.id.indoorradioButtonTab2 ->{myView.findViewById<ImageView>(R.id.indoorMapImage).setImageResource(R.drawable.middle_level)}
+                R.id.indoorradioButtonTab3 ->{myView.findViewById<ImageView>(R.id.indoorMapImage).setImageResource(R.drawable.highest_level)}
             }
     }
 }

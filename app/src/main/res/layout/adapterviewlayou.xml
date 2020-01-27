@@ -13,7 +13,7 @@
     android:layout_margin="14dp"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@android:color/transparent"
+    app:cardBackgroundColor="@android:color/darker_gray"
     app:cardElevation="5dp"
     app:cardPreventCornerOverlap="true"
     android:theme="@style/Theme.MaterialComponents">
@@ -22,14 +22,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
     <ImageView
-
+        android:padding="5dp"
+            android:outlineAmbientShadowColor="@color/cardview_light_background"
             android:contentDescription="Image of Sponsor"
             tools:src="@tools:sample/backgrounds/scenic"
             android:id="@+id/product_image"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@android:color/transparent"
-            android:scaleType="fitCenter" />
+            android:scaleType="centerInside" />
 
         <LinearLayout
             android:layout_width="match_parent"

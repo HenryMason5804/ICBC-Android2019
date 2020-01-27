@@ -14,7 +14,7 @@
     <ImageView
         android:padding="1dp"
             android:layout_width="match_parent"
-            android:scaleType="centerCrop"
+            android:scaleType="center"
             android:layout_height="200dp" tools:src="@tools:sample/backgrounds/scenic"
             android:id="@+id/imageView"/>
     <TextView android:layout_width="match_parent" android:layout_height="32dp"

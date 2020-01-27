@@ -28,6 +28,7 @@ public class MyFireBaseMessagingService:FirebaseMessagingService() {
 
 }
 
+
 private fun sendNotification(remoteMessage: RemoteMessage) {
     val notification = remoteMessage.getNotification();
     val i= Intent(Intent.ACTION_VIEW)

@@ -62,7 +62,7 @@ class EventAdapterforRecylerView(val context:Context,val eventColref:CollectionR
             if (snapshot != null) {
                 for (document in snapshot) {
                     val eventObject = document.toObject(FullEventObject::class.java)
-                    if (eventObject.eventCode==null){
+                   /* if (eventObject.eventCode==null){
                     when (splitIDColor){
                         'm'->if( eventObject.eventType.toString().toLowerCase()!="gold"){
                         eventObjectList.add(eventObject)
@@ -79,9 +79,9 @@ class EventAdapterforRecylerView(val context:Context,val eventColref:CollectionR
                     }
                     else if (splitIDColor=='&'){
                         eventObjectList.add(eventObject)
-                    }}
+                    }*/eventObjectList.add(eventObject)}}
 
-            }
+
             notifyDataSetChanged()
         }
     }
@@ -97,10 +97,9 @@ class EventAdapterforRecylerView(val context:Context,val eventColref:CollectionR
     override fun getItemCount(): Int {
         return eventObjectList.size
     }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(context).asBitmap().load(eventObjectList.get(position).image).into(holder.eventImageView)
-        holder.eventDescripView.text = eventObjectList.get(position).description
+        holder.eventDescripView.text = eventObjectList.get(position).location
         holder.eventTitleView.text = eventObjectList.get(position).title
         holder.eventcodeView.text = eventObjectList.get(position).eventCode
         holder.itemView.setOnClickListener{clickListenerFunction(eventObjectList[position].id.toLong(), 3)

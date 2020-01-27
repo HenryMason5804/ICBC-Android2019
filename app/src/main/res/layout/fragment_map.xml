@@ -22,7 +22,7 @@
         android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/goodes_lower"
+        android:src="@drawable/lower_level"
         />
 </FrameLayout>
 
@@ -30,7 +30,7 @@
         android:minHeight="100dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="550dp"
         android:id="@+id/slidingPanelLinearLayout"
         android:gravity="center_horizontal">
         <RadioGroup

@@ -2,6 +2,7 @@ package com.henrylearns.adapterpractice
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.text.Layout
@@ -22,6 +23,7 @@ import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.exec_profile_popup_layout.*
 import kotlinx.android.synthetic.main.fragment_tab_screen.*
 import kotlinx.android.synthetic.main.privacy_policy_popup.view.*
+import java.net.URI
 
 class SignIn : AppCompatActivity() {
 
@@ -30,8 +32,8 @@ class SignIn : AppCompatActivity() {
         var eventRef: CollectionReference = FirebaseFirestore.getInstance().collection("AccessCodes")
         setContentView(R.layout.activity_sign_in)
         Log.d("debuggingOpeningApp",intent.toString())
-        if (intent.data!=null){
-        Log.d("debuggingOpeningApp",intent.data.toString())}
+        //Log.d("debuggingOpeningApp",intent.extras.toString())
+
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(OnCompleteListener { task ->
                 if (!task.isSuccessful) {
